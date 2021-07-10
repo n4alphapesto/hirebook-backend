@@ -1,0 +1,402 @@
+{
+	"info": {
+		"_postman_id": "6fd21426-7f59-4b1c-82cd-292578c278ac",
+		"name": "REST API NodeJS",
+		"description": "A boilerplate for REST API Development with Node.js and Expressjs",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Register",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "firstName",
+									"value": "Avinash",
+									"type": "text"
+								},
+								{
+									"key": "lastName",
+									"value": "Kumar",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "Test@123",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "avinashjsdev@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "gitUrl",
+									"value": "https://api.github.com/users/avinashara/repos",
+									"type": "text"
+								},
+								{
+									"key": "userType",
+									"value": "freelancer",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/auth/register?=",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"auth",
+								"register"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "email",
+									"value": "avinashjsdev@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "Test@123",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/auth/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Verify Confirm OTP",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "email",
+									"value": "avinashjsdev@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "otp",
+									"value": "3587",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/auth/verify-otp",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"auth",
+								"verify-otp"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Resend Confirm OTP",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "email",
+									"value": "avinashjsdev@gmail.com",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/auth/resend-verify-otp",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"auth",
+								"resend-verify-otp"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Jobs",
+			"item": [
+				{
+					"name": "Add Job",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwYmNmYTVlZWM4OWMwNjE2YzUwMzc1ZiIsImZpcnN0TmFtZSI6IkF2aW5hc2giLCJsYXN0TmFtZSI6Ikt1bWFyIiwiZW1haWwiOiJhdmluYXNoanNkZXZAZ21haWwuY29tIiwiZ2l0VXJsIjoiaHR0cHM6JiN4MkY7JiN4MkY7YXBpLmdpdGh1Yi5jb20mI3gyRjt1c2VycyYjeDJGO2F2aW5hc2hhcmEmI3gyRjtyZXBvcyIsInVzZXJUeXBlIjoiZnJlZWxhbmNlciIsImlhdCI6MTYyMjk5ODEyMSwiZXhwIjoxNjIzMTcwOTIxfQ.1aLhwWO-wngbQ0AOETgw4c7zpelRyDJi9UzuQadHSYw",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "title",
+									"value": "testing book ",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "testing book desc",
+									"type": "text"
+								},
+								{
+									"key": "isbn",
+									"value": "3214htrff4",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/book",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"book"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Job List",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwYmNmYTVlZWM4OWMwNjE2YzUwMzc1ZiIsImZpcnN0TmFtZSI6IkF2aW5hc2giLCJsYXN0TmFtZSI6Ikt1bWFyIiwiZW1haWwiOiJhdmluYXNoanNkZXZAZ21haWwuY29tIiwiZ2l0VXJsIjoiaHR0cHM6JiN4MkY7JiN4MkY7YXBpLmdpdGh1Yi5jb20mI3gyRjt1c2VycyYjeDJGO2F2aW5hc2hhcmEmI3gyRjtyZXBvcyIsInVzZXJUeXBlIjoiZnJlZWxhbmNlciIsImlhdCI6MTYyMjk5ODEyMSwiZXhwIjoxNjIzMTcwOTIxfQ.1aLhwWO-wngbQ0AOETgw4c7zpelRyDJi9UzuQadHSYw",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/api/job",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"job"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Apply Job",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZDQwMzc0ODllY2I2ZDUyNjAzZDQ1ZjMiLCJmaXJzdE5hbWUiOiJ0ZXN0IiwibGFzdE5hbWUiOiJ0ZXN0aW5nIiwiZW1haWwiOiJ0ZXN0QHRlc3RpbmcuY29tIiwiaWF0IjoxNTY0NzQ0NzQ4LCJleHAiOjE1NjQ3NTE5NDh9.gE2DjhWgNmPFyy7K21MEC4bIm3gbbDicdE_eorFIZ0o",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/api/book/5d43d14a246036209713e667",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"book",
+								"5d43d14a246036209713e667"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Job By Email",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwYmNmYTVlZWM4OWMwNjE2YzUwMzc1ZiIsImZpcnN0TmFtZSI6IkF2aW5hc2giLCJsYXN0TmFtZSI6Ikt1bWFyIiwiZW1haWwiOiJhdmluYXNoanNkZXZAZ21haWwuY29tIiwiZ2l0VXJsIjoiaHR0cHM6JiN4MkY7JiN4MkY7YXBpLmdpdGh1Yi5jb20mI3gyRjt1c2VycyYjeDJGO2F2aW5hc2hhcmEmI3gyRjtyZXBvcyIsInVzZXJUeXBlIjoiZnJlZWxhbmNlciIsImlhdCI6MTYyMjk5ODEyMSwiZXhwIjoxNjIzMTcwOTIxfQ.1aLhwWO-wngbQ0AOETgw4c7zpelRyDJi9UzuQadHSYw",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "title",
+									"value": "testing book 123 456",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "testing book desc 123 456",
+									"type": "text"
+								},
+								{
+									"key": "isbn",
+									"value": "3214htrff445",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/job/avinashjsdev@gmail.com",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"job",
+								"avinashjsdev@gmail.com"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Job By Applicant",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwYmNmYTVlZWM4OWMwNjE2YzUwMzc1ZiIsImZpcnN0TmFtZSI6IkF2aW5hc2giLCJsYXN0TmFtZSI6Ikt1bWFyIiwiZW1haWwiOiJhdmluYXNoanNkZXZAZ21haWwuY29tIiwiZ2l0VXJsIjoiaHR0cHM6JiN4MkY7JiN4MkY7YXBpLmdpdGh1Yi5jb20mI3gyRjt1c2VycyYjeDJGO2F2aW5hc2hhcmEmI3gyRjtyZXBvcyIsInVzZXJUeXBlIjoiZnJlZWxhbmNlciIsImlhdCI6MTYyMjk5ODEyMSwiZXhwIjoxNjIzMTcwOTIxfQ.1aLhwWO-wngbQ0AOETgw4c7zpelRyDJi9UzuQadHSYw",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/api/job/user/60bcfa5eec89c0616c50375f",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"job",
+								"user",
+								"60bcfa5eec89c0616c50375f"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
