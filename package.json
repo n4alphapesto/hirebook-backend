@@ -4,7 +4,7 @@
   "private": true,
   "author": "Avinash Kumar",
   "scripts": {
-    "start": "node ./bin/www",
+    "start": "JWT_SECRET=alpha@pesto node ./bin/www",
     "dev": "nodemon ./bin/www",
     "test": "nyc _mocha --timeout 10000 --exit --report lcovonly -- -R spec",
     "lint": "eslint --fix --config .eslintrc.json \"**/*.js\""
