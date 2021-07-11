@@ -1,8 +1,8 @@
 const jwt = require("express-jwt");
-const secret = process.env.JWT_SECRET;
+const { CONFIG } = require('./../helpers/config')
 
 const authenticate = jwt({
-	secret: secret
+	secret: CONFIG.JWT_SECRET
 });
 
 module.exports = authenticate;

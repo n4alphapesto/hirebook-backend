@@ -8,6 +8,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const mailer = require("../helpers/mailer");
 const { constants } = require("../helpers/constants");
+const { CONFIG } = require("./../helpers/config");
 
 /**
  * User registration.
@@ -140,9 +141,9 @@ exports.login = [
 										//Prepare JWT token for authentication
 										const jwtPayload = userData;
 										const jwtData = {
-											expiresIn: process.env.JWT_TIMEOUT_DURATION,
+											expiresIn: CONFIG.JWT_TIMEOUT_DURATION,
 										};
-										const secret = process.env.JWT_SECRET;
+										const secret = CONFIG.JWT_SECRET;
 										//Generated JWT token with Payload and secret.
 										userData.token = jwt.sign(jwtPayload, secret, jwtData);
 										return apiResponse.successResponseWithData(res, "Login Success.", userData);
