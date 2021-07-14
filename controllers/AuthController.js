@@ -22,10 +22,7 @@ const { CONFIG } = require("./../helpers/config");
  */
 exports.register = [
 	// Validate fields.
-	body("firstName").isLength({ min: 1 }).trim().withMessage("First name must be specified.")
-		.isAlphanumeric().withMessage("First name has non-alphanumeric characters."),
-	body("lastName").isLength({ min: 1 }).trim().withMessage("Last name must be specified.")
-		.isAlphanumeric().withMessage("Last name has non-alphanumeric characters."),
+	body("name").isLength({ min: 1 }).trim().withMessage("Name must be specified."),
 	body("email").isLength({ min: 1 }).trim().withMessage("Email must be specified.")
 		.isEmail().withMessage("Email must be a valid email address.").custom((value) => {
 			return UserModel.findOne({ email: value }).then((user) => {
@@ -36,14 +33,11 @@ exports.register = [
 		}),
 	body("password").isLength({ min: 6 }).trim().withMessage("Password must be 6 characters or greater."),
 	body("userType").isLength({ min: 5 }).trim().withMessage("User Type must be 5 characters or greater."),
-	body("gitUrl").isLength({ min: 7 }).trim().withMessage("git Url must be 7 characters or greater."),
 	// Sanitize fields.
-	sanitizeBody("firstName").escape(),
-	sanitizeBody("lastName").escape(),
+	sanitizeBody("name").escape(),
 	sanitizeBody("email").escape(),
 	sanitizeBody("password").escape(),
 	sanitizeBody("userType").escape(),
-	sanitizeBody("gitUrl").escape(),
 	// Process request after validation and sanitization.
 	(req, res) => {
 		try {
@@ -60,13 +54,11 @@ exports.register = [
 					// Create User object with escaped and trimmed data
 					var user = new UserModel(
 						{
-							firstName: req.body.firstName,
-							lastName: req.body.lastName,
+							name: req.body.name,
 							email: req.body.email,
 							password: hash,
 							confirmOTP: otp,
 							userType: req.body.userType,
-							gitUrl: req.body.gitUrl
 						}
 					);
 					// Html email body
