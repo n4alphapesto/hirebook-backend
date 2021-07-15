@@ -5,5 +5,9 @@ exports.constants = {
 	},
 	confirmEmails: {
 		from : "a0k03lf@gmail.com"
+	},
+	jobRolesTypes: {
+		recruiters: "recruiters",
+		jobSekkers: "jobSekkers"
 	}
 };
