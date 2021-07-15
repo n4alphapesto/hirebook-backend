@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "6fd21426-7f59-4b1c-82cd-292578c278ac",
+		"_postman_id": "73c12871-d132-40a0-a9f4-d2c5fb44404d",
 		"name": "REST API NodeJS",
 		"description": "A boilerplate for REST API Development with Node.js and Expressjs",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
@@ -57,12 +57,10 @@
 							]
 						},
 						"url": {
-							"raw": "http://localhost:3000/api/auth/register?=",
-							"protocol": "http",
+							"raw": "{{url}}/api/auth/register?=",
 							"host": [
-								"localhost"
+								"{{url}}"
 							],
-							"port": "3000",
 							"path": [
 								"api",
 								"auth",
@@ -106,12 +104,10 @@
 							]
 						},
 						"url": {
-							"raw": "http://localhost:3000/api/auth/login",
-							"protocol": "http",
+							"raw": "{{url}}/api/auth/login",
 							"host": [
-								"localhost"
+								"{{url}}"
 							],
-							"port": "3000",
 							"path": [
 								"api",
 								"auth",
@@ -149,12 +145,10 @@
 							]
 						},
 						"url": {
-							"raw": "http://localhost:3000/api/auth/verify-otp",
-							"protocol": "http",
+							"raw": "{{url}}/api/auth/verify-otp",
 							"host": [
-								"localhost"
+								"{{url}}"
 							],
-							"port": "3000",
 							"path": [
 								"api",
 								"auth",
@@ -187,12 +181,10 @@
 							]
 						},
 						"url": {
-							"raw": "http://localhost:3000/api/auth/resend-verify-otp",
-							"protocol": "http",
+							"raw": "{{url}}/api/auth/resend-verify-otp",
 							"host": [
-								"localhost"
+								"{{url}}"
 							],
-							"port": "3000",
 							"path": [
 								"api",
 								"auth",
@@ -245,12 +237,10 @@
 							]
 						},
 						"url": {
-							"raw": "http://localhost:3000/api/book",
-							"protocol": "http",
+							"raw": "{{url}}/api/book",
 							"host": [
-								"localhost"
+								"{{url}}"
 							],
-							"port": "3000",
 							"path": [
 								"api",
 								"book"
@@ -271,12 +261,10 @@
 							}
 						],
 						"url": {
-							"raw": "http://localhost:3000/api/job",
-							"protocol": "http",
+							"raw": "{{url}}/api/job",
 							"host": [
-								"localhost"
+								"{{url}}"
 							],
-							"port": "3000",
 							"path": [
 								"api",
 								"job"
@@ -297,12 +285,10 @@
 							}
 						],
 						"url": {
-							"raw": "http://localhost:3000/api/book/5d43d14a246036209713e667",
-							"protocol": "http",
+							"raw": "{{url}}/api/book/5d43d14a246036209713e667",
 							"host": [
-								"localhost"
+								"{{url}}"
 							],
-							"port": "3000",
 							"path": [
 								"api",
 								"book",
@@ -353,12 +339,10 @@
 							]
 						},
 						"url": {
-							"raw": "http://localhost:3000/api/job/avinashjsdev@gmail.com",
-							"protocol": "http",
+							"raw": "{{url}}/api/job/avinashjsdev@gmail.com",
 							"host": [
-								"localhost"
+								"{{url}}"
 							],
-							"port": "3000",
 							"path": [
 								"api",
 								"job",
@@ -380,17 +364,183 @@
 							}
 						],
 						"url": {
-							"raw": "http://localhost:3000/api/job/user/60bcfa5eec89c0616c50375f",
-							"protocol": "http",
+							"raw": "{{url}}/api/job/user/60bcfa5eec89c0616c50375f",
 							"host": [
-								"localhost"
+								"{{url}}"
 							],
-							"port": "3000",
 							"path": [
 								"api",
 								"job",
 								"user",
 								"60bcfa5eec89c0616c50375f"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "masterData",
+			"item": [
+				{
+					"name": "cities",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/masterdata/cities",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"masterdata",
+								"cities"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "skills",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/masterdata/skills",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"masterdata",
+								"skills"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "jobsekkers",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/masterdata/jobRoles",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"masterdata",
+								"jobRoles"
+							],
+							"query": [
+								{
+									"key": "filter",
+									"value": "recruiters",
+									"disabled": true
+								},
+								{
+									"key": "filter",
+									"value": "jobSekkers",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "onBoard",
+			"item": [
+				{
+					"name": "jobSeeker",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"experienceType\":\"fresher\",\r\n    \"experience\":2,\r\n    \"currentRole\": \"Tester\",\r\n    \"skills\": [{\r\n        \"title\": \"sadasd\",\r\n        \"expertiseLevel\": \"fresher\"\r\n    }],\r\n    \"currentLocation\":\"dasd\",\r\n    \"openToWork\": \"SAdasd\",\r\n    \"currentCTC\": 5000,\r\n    \"noticePeriod\": 2,\r\n    \"resume\": \"ASdasd\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/onBoard/jobSeeker",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"onBoard",
+								"jobSeeker"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Recruiter",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"companyName\":\"test\",\r\n    \"userRole\":\"Test\",\r\n    \"mobileNo\":\"55555555555\",\r\n    \"locations\":[\"asdasd\"],\r\n    \"website\":\"https://google.com\",\r\n    \"foundationYear\":2021,\r\n    \"noOfEmployees\":3,\r\n    \"about\":\"ASdsad\",\r\n    \"companyPhotos\":[\"companyPhotos1\",\"companyPhotos2\"],\r\n    \"linkedinProfile\":\"https://www.linkedin.com/\",\r\n    \"twitterProfile\": \"https://www.twitter.com/\",\r\n    \"facebookProfile\": \"https://www.twitter.com/\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/onBoard/recruiter",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"onBoard",
+								"recruiter"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "File uploads",
+			"item": [
+				{
+					"name": "file uploads",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "files",
+									"type": "file",
+									"src": []
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/api/uploads",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"uploads"
 							]
 						}
 					},

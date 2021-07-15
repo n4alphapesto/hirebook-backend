@@ -1,6 +1,6 @@
 const JobModel = require("../models/JobModel");
-const { body, validationResult } = require("express-validator");
-const { sanitizeBody } = require("express-validator");
+const {body, validationResult} = require("express-validator");
+const {sanitizeBody} = require("express-validator");
 const apiResponse = require("../helpers/apiResponse");
 const auth = require("../middlewares/jwt");
 var mongoose = require("mongoose");
@@ -58,7 +58,6 @@ exports.JobListByApplicantId = [
 ];
 
 
-
 /**
  * All Jobs.
  *
@@ -103,7 +102,7 @@ exports.JobsByEmail = [
 			return apiResponse.successResponseWithData(res, "Operation success", []);
 		}
 		try {
-			JobModel.find({ email: req.params.email }).then((Jobs) => {
+			JobModel.find({email: req.params.email}).then((Jobs) => {
 				if (Jobs.length > 0) {
 					let JobData = [];
 					Jobs.forEach(job => {
@@ -133,20 +132,19 @@ exports.JobsByEmail = [
  */
 exports.addJob = [
 	auth,
-	body("title", "Title must not be empty.").isLength({ min: 1 }),
-	body("description", "Description must not be empty.").isLength({ min: 1 }),
-	body("cost", "Cost must be more than $10.").isLength({ min: 1 }).trim(),
-	body("owner", "Owner must not be empty.").isLength({ min: 1 }),
-	body("email", "Email must not be empty.").isLength({ min: 1 }).trim(),
-	body("skills", "Skills must not be less than 3 character.").isLength({ min: 3 }).trim(),
+	body("title", "Title must not be empty.").isLength({min: 1}),
+	body("description", "Description must not be empty.").isLength({min: 1}),
+	body("cost", "Cost must be more than $10.").isLength({min: 1}).trim(),
+	body("owner", "Owner must not be empty.").isLength({min: 1}),
+	body("email", "Email must not be empty.").isLength({min: 1}).trim(),
+	body("skills", "Skills must not be less than 3 character.").isLength({min: 3}).trim(),
 	sanitizeBody("*").escape(),
 	(req, res) => {
 		try {
 			const errors = validationResult(req);
 			if (!errors.isEmpty()) {
 				return apiResponse.validationErrorWithData(res, "Validation Error.", errors.array());
-			}
-			else {
+			} else {
 				var Job = new JobModel(
 					{
 						title: req.body.title,
@@ -155,13 +153,15 @@ exports.addJob = [
 						owner: req.body.owner,
 						email: req.body.email,
 						skills: req.body.skills,
-						date: new Date().toLocaleString('en-US'),
-						status: 'Active',
+						date: new Date().toLocaleString("en-US"),
+						status: "Active",
 						applicants: []
 					});
 				//Save Job.
 				Job.save(function (err) {
-					if (err) { return apiResponse.ErrorResponse(res, err); }
+					if (err) {
+						return apiResponse.ErrorResponse(res, err);
+					}
 					let JobData = new jobData(Job);
 					return apiResponse.successResponseWithData(res, "Job add Success.", JobData);
 				});
@@ -183,8 +183,8 @@ exports.addJob = [
  */
 exports.JobApplied = [
 	auth,
-	body("jobId", "Job ID must not be empty.").isLength({ min: 1 }).trim(),
-	body("applicantId", "Applicant ID must not be empty.").isLength({ min: 1 }).trim(),
+	body("jobId", "Job ID must not be empty.").isLength({min: 1}).trim(),
+	body("applicantId", "Applicant ID must not be empty.").isLength({min: 1}).trim(),
 	sanitizeBody("*").escape(),
 	(req, res) => {
 		try {
@@ -193,8 +193,7 @@ exports.JobApplied = [
 
 			if (!errors.isEmpty()) {
 				return apiResponse.validationErrorWithData(res, "Validation Error.", errors.array());
-			}
-			else {
+			} else {
 				if (!mongoose.Types.ObjectId.isValid(req.body.jobId)) {
 					return apiResponse.validationErrorWithData(res, "Invalid Error.", "Invalid Job ID");
 				} else if (!mongoose.Types.ObjectId.isValid(req.body.applicantId)) {

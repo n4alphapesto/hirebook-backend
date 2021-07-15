@@ -9,5 +9,9 @@ exports.constants = {
 	jobRolesTypes: {
 		recruiters: "recruiters",
 		jobSekkers: "jobSekkers"
+	},
+	experienceType:{
+		fresher: "fresher",
+		experienced: "experienced"
 	}
 };

@@ -3,7 +3,7 @@ const CityModel = require("../models/CityModel");
 const SkillModel = require("../models/SkillModel");
 const jobRolesModel = require("../models/JobRoleModel");
 
-function masterData(data) {
+function MasterData(data) {
 	this.id = data._id;
 	this.title = data.title;
 	this.type = data.type;
@@ -14,7 +14,7 @@ exports.Cities = (req, res) => {
 		CityModel.find({}).then((cities) => {
 			let CitiesData = [];
 			cities.forEach(city => {
-				let data = new masterData(city);
+				let data = new MasterData(city);
 				CitiesData.push(data);
 			});
 			return apiResponse.successResponseWithData(res, "Operation success", CitiesData);
@@ -29,7 +29,7 @@ exports.Skills = (req, res) => {
 		SkillModel.find({}).then((skills) => {
 			let SkillsData = [];
 			skills.forEach(skill => {
-				let data = new masterData(skill);
+				let data = new MasterData(skill);
 				SkillsData.push(data);
 			});
 			return apiResponse.successResponseWithData(res, "Operation success", SkillsData);
@@ -49,7 +49,7 @@ exports.jobRoles = (req, res) => {
 		query.then((jobRoles) => {
 			let jobRolesData = [];
 			jobRoles.forEach(jobRole => {
-				let data = new masterData(jobRole);
+				let data = new MasterData(jobRole);
 				jobRolesData.push(data);
 			});
 			return apiResponse.successResponseWithData(res, "Operation success", jobRolesData);

@@ -1,7 +1,7 @@
-var mongoose = require("mongoose");
+const mongoose = require("mongoose");
 
-var SkillSchema = new mongoose.Schema({
-    title: { type: String, required: true }
-})
+const SkillSchema = new mongoose.Schema({
+	title: {type: String, required: true}
+});
 
 module.exports = mongoose.model("Skill", SkillSchema);
