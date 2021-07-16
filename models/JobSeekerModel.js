@@ -1,10 +1,10 @@
 const mongoose = require("mongoose");
-const {constants} = require("../helpers/constants");
+const { constants } = require("../helpers/constants");
 
 const Schema = mongoose.Schema;
 const DataTypes = Schema.Types;
 
-const OnBoardSkillsSchema = new Schema({
+const SkillsSchema = new Schema({
 	title: {
 		type: DataTypes.String,
 		required: true
@@ -15,9 +15,9 @@ const OnBoardSkillsSchema = new Schema({
 		default: constants.experienceType.fresher,
 		required: true
 	}
-});
+}, { _id: false });
 
-const OnBoardJobSeekerSchema = new Schema({
+const JobSeekerSchema = new Schema({
 	experienceType: {
 		type: String,
 		enum: Object.values(constants.experienceType),
@@ -32,7 +32,7 @@ const OnBoardJobSeekerSchema = new Schema({
 		type: DataTypes.String,
 		required: true
 	},
-	skills: [OnBoardSkillsSchema],
+	skills: [SkillsSchema],
 	currentLocation: {
 		type: DataTypes.ObjectId, ref: "city",
 		required: true
@@ -49,7 +49,15 @@ const OnBoardJobSeekerSchema = new Schema({
 	resume: {
 		type: DataTypes.ObjectId,
 		required: true
+	},
+	savedJobs: {
+		type: [DataTypes.ObjectId],
+		default: []
+	},
+	appliedJobs: {
+		type: [DataTypes.ObjectId],
+		default: []
 	}
 });
 
-module.exports = mongoose.model("onBoardJobSeeker", OnBoardJobSeekerSchema);
+module.exports = mongoose.model("JobSeeker", JobSeekerSchema);

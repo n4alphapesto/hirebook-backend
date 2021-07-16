@@ -1,9 +1,9 @@
-const {body, validationResult, sanitizeBody} = require("express-validator");
+const { body, validationResult, sanitizeBody } = require("express-validator");
 const apiResponse = require("../helpers/apiResponse");
 const auth = require("../middlewares/jwt");
-const onBoardJobSeekerModel = require("../models/OnBoardJobSeekerModel");
+const JobSeekerModel = require("../models/JobSeekerModel");
 
-exports.JobSeeker = [
+exports.JobSeeker = [auth,
 	body("experienceType", "Experience Type must not be empty.").notEmpty(),
 	body("experience", "Experience must not be empty.").isNumeric(),
 	body("currentRole", "current Role must not be empty.").notEmpty(),
@@ -20,7 +20,7 @@ exports.JobSeeker = [
 			if (!errors.isEmpty()) {
 				return apiResponse.validationErrorWithData(res, "Validation Error.", errors.array());
 			} else {
-				// create query with onBoardJobSeekerModel
+				// create query with JobSeekerModel
 				console.log(req.body);
 				return apiResponse.successResponseWithData(res, "check Console", req.body);
 			}

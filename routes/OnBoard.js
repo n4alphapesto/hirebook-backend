@@ -1,10 +1,10 @@
 const express = require("express");
-const onBoardJobSeekerController = require("../controllers/OnBoardJobSeekerController");
-const onBoardRecruiterController = require("../controllers/OnBoardRecruiterConroller");
+const JobSeekerController = require("../controllers/JobSeekerController");
+const RecruiterController = require("../controllers/RecruiterConroller");
 
 const router = express.Router();
 
-router.post("/jobSeeker", onBoardJobSeekerController.JobSeeker);
-router.post("/recruiter", onBoardRecruiterController.Recruiter);
+router.post("/jobSeeker", JobSeekerController.JobSeeker);
+router.post("/recruiter", RecruiterController.Recruiter);
 
 module.exports = router;

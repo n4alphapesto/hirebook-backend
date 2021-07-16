@@ -74,12 +74,21 @@ exports.register = [
 						user.save(function (err) {
 							if (err) { return apiResponse.ErrorResponse(res, err); }
 							let userData = {
-								_id: user._id,
+								id: user._id,
 								firstName: user.firstName,
 								lastName: user.lastName,
-								email: user.email
+								email: user.email,
+								userType: user.userType
 							};
-							return apiResponse.successResponseWithData(res, "Registration Success.", userData);
+							//Prepare JWT token for authentication
+							const jwtPayload = userData;
+							const jwtData = {
+								expiresIn: CONFIG.JWT_TIMEOUT_DURATION,
+							};
+							const secret = CONFIG.JWT_SECRET;
+							//Generated JWT token with Payload and secret.
+							const token = jwt.sign(jwtPayload, secret, jwtData);
+							return apiResponse.successResponseWithData(res, "Registration Success.", {userData, token});
 						});
 					}).catch(err => {
 						console.log(err);

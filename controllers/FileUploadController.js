@@ -7,23 +7,19 @@ const storage = multer.diskStorage({
 		callback(null, "./uploads");
 	},
 	filename: (req, file, callback) => {
-		const match = ["image/png", "image/jpeg"];
-		if (match.indexOf(file.mimetype) === -1) {
-			const message = `${file.originalname} is invalid. Only accept png/jpeg.`;
-			return callback(message, null);
-		}
-		const filename = `${Date.now()}-test-${file.originalname}`;
+		const filename = `${Date.now()}-${file.originalname}`;
 		callback(null, filename);
 	}
 });
 
-const upload = multer({storage: storage}).array("files", 5);
+const upload = multer({ storage})
 
 exports.FileUploads = [
 
 	(req, res) => {
 		try {
 			upload(req, res, function (err) {
+				// console.log(" req.body ", req);
 				if (err) {
 					return apiResponse.ErrorResponse(res, "Error uploading file.");
 				} else if (req.files.length <= 0) {
@@ -37,6 +33,7 @@ exports.FileUploads = [
 			});
 		} catch
 		(err) {
+			console.log("filupload err", err);
 			return apiResponse.ErrorResponse(res, err);
 		}
 	}];

@@ -1,6 +1,5 @@
 const apiResponse = require("../helpers/apiResponse");
 const CityModel = require("../models/CityModel");
-const SkillModel = require("../models/SkillModel");
 const jobRolesModel = require("../models/JobRoleModel");
 
 function MasterData(data) {
@@ -18,21 +17,6 @@ exports.Cities = (req, res) => {
 				CitiesData.push(data);
 			});
 			return apiResponse.successResponseWithData(res, "Operation success", CitiesData);
-		});
-	} catch (err) {
-		return apiResponse.ErrorResponse(res, err);
-	}
-};
-
-exports.Skills = (req, res) => {
-	try {
-		SkillModel.find({}).then((skills) => {
-			let SkillsData = [];
-			skills.forEach(skill => {
-				let data = new MasterData(skill);
-				SkillsData.push(data);
-			});
-			return apiResponse.successResponseWithData(res, "Operation success", SkillsData);
 		});
 	} catch (err) {
 		return apiResponse.ErrorResponse(res, err);

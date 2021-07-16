@@ -11,7 +11,8 @@ const JobSchema = new Schema({
 	owner: {type: String, required: true},
 	email: {type: String, required: true},
 	skills: {type: String, required: true},
-	applicants: {type: Array, required: true}
+	applicants: {type: Array, required: true},
+	vacancies: { type: Number, require: true}
 }, {timestamps: true});
 
 module.exports = mongoose.model("Job", JobSchema);

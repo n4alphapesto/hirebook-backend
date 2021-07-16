@@ -7,8 +7,8 @@ exports.constants = {
 		from : "a0k03lf@gmail.com"
 	},
 	jobRolesTypes: {
-		recruiters: "recruiters",
-		jobSekkers: "jobSekkers"
+		recruiter: "recruiter",
+		jobseeker: "jobseeker"
 	},
 	experienceType:{
 		fresher: "fresher",
