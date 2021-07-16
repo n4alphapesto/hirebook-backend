@@ -527,7 +527,7 @@
 							"mode": "formdata",
 							"formdata": [
 								{
-									"key": "files",
+									"key": "file",
 									"type": "file",
 									"src": []
 								}
