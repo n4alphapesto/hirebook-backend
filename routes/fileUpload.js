@@ -4,6 +4,6 @@ const multer = require("multer");
 
 const router = express.Router();
 
-router.post("/", multer().single('file'), FileController.FileUploads);
+router.post("/", multer().array('file'), FileController.FileUploads);
 
 module.exports = router;
