@@ -22,7 +22,7 @@ exports.FileUploads = [
 			// if (err) {
 			// 	return apiResponse.ErrorResponse(res, "Error uploading file.");
 			// } else
-			if (!req.file) {
+			if (!req.files) {
 				return apiResponse.ErrorResponse(res, "You must select at least 1 file.",);
 			} else {
 				// create query with fileUploadModel
