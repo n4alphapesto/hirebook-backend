@@ -8,6 +8,11 @@ const RecruiterSchema = new Schema({
 		type: DataTypes.String,
 		required: true
 	},
+	companyLogo: {
+		type: DataTypes.ObjectId,
+		required: true
+	},
+	companyPhotos: [DataTypes.ObjectId],
 	userRole: {
 		type: DataTypes.String,
 		required: true
@@ -16,7 +21,7 @@ const RecruiterSchema = new Schema({
 		type: DataTypes.String,
 		required: true
 	},
-	locations: [DataTypes.ObjectId],
+	locations: [DataTypes.String],
 	website: {
 		type: DataTypes.String,
 		required: true
@@ -29,11 +34,10 @@ const RecruiterSchema = new Schema({
 		type: DataTypes.Number,
 		required: true
 	},
-	about: {
+	aboutCompany: {
 		type: DataTypes.String,
 		required: true
 	},
-	companyPhotos: [DataTypes.ObjectId],
 	linkedinProfile: {
 		type: DataTypes.String,
 		required: true
@@ -47,10 +51,6 @@ const RecruiterSchema = new Schema({
 		required: true
 	},
 	notInterestedCandidates: {
-		type: [DataTypes.ObjectId],
-		default: []
-	},
-	jobPosted: {
 		type: [DataTypes.ObjectId],
 		default: []
 	},

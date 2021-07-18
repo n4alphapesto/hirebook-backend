@@ -11,8 +11,8 @@ const SkillsSchema = new Schema({
 	},
 	expertiseLevel: {
 		type: DataTypes.String,
-		enum: Object.values(constants.experienceType),
-		default: constants.experienceType.fresher,
+		enum: Object.values(constants.expertiseLevel),
+		default: constants.expertiseLevel.FRESHER,
 		required: true
 	}
 }, { _id: false });
@@ -21,7 +21,7 @@ const JobSeekerSchema = new Schema({
 	experienceType: {
 		type: String,
 		enum: Object.values(constants.experienceType),
-		default: constants.experienceType.fresher,
+		default: constants.experienceType.FRESHER,
 		required: true
 	},
 	experience: {
@@ -34,7 +34,7 @@ const JobSeekerSchema = new Schema({
 	},
 	skills: [SkillsSchema],
 	currentLocation: {
-		type: DataTypes.ObjectId, ref: "city",
+		type: DataTypes.String,
 		required: true
 	},
 	openToWork: [DataTypes.ObjectId],
@@ -57,6 +57,14 @@ const JobSeekerSchema = new Schema({
 	appliedJobs: {
 		type: [DataTypes.ObjectId],
 		default: []
+	},
+	about: {
+		type: DataTypes.String,
+		required: true
+	},
+	notInterestedJobs: {
+		type: [DataTypes.ObjectId],
+		required: false
 	}
 });
 

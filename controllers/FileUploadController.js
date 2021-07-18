@@ -1,38 +1,39 @@
 const fileUploadModel = require("../models/FileUploadModel");
 const apiResponse = require("../helpers/apiResponse");
-//const multer = require("multer");
+const { GridFsStorage } = require('multer-gridfs-storage');
+const multer = require('multer');
+var { CONFIG } = require("../helpers/config");
 
-//Remove this
-// var storage = multer.diskStorage({
-// 	destination: function (req, file, cb) {
-// 		cb(null, 'uploads');
-// 	},
-// 	filename: function (req, file, cb) {
-// 		cb(null, new Date().toISOString() + file.originalname);
-// 	}
-// });
+// DB connection
+var MONGODB_URL = CONFIG.MONGODB_URL;
 
-//You can remove this as we are not needing this to store the files in server
-//exports.upload = multer({ storage: storage });
-//exports.upload = multer();
+const storage = new GridFsStorage({
+	url: MONGODB_URL,
+	file: (req, file) => {
+		return {
+			bucketName: 'files',
+			//Setting collection name, default name is fs      
+			filename: file.originalname
+			//Setting file name to original name of file    
+		}
+	}
+});
 
-exports.FileUploads = [
-	(req, res) => {
-		try {
-			// if (err) {
-			// 	return apiResponse.ErrorResponse(res, "Error uploading file.");
-			// } else
-			if (!req.files) {
-				return apiResponse.ErrorResponse(res, "You must select at least 1 file.",);
-			} else {
-				// create query with fileUploadModel
-				console.log(req.body);
-				console.log(req.files);
-				res.end("File is uploaded");
-			}
-		} catch
-		(err) {
-			console.log("filupload err", err);
+storage.on('connection', (db) => {
+	//Setting up upload for a single file  
+	upload = multer({
+		storage: storage
+	}).array('files', 5);
+});
+
+exports.FileUploads = (req, res) => {
+	upload(req, res, (err) => {
+		if (err) {
 			return apiResponse.ErrorResponse(res, err);
 		}
-	}];
+		console.log(req.body);
+		console.log(req.files);
+		const fileIds = req.files.map(file => file.id);
+		return apiResponse.successResponseWithData(res, "Files Uploaded Successfully", fileIds);
+	});
+};

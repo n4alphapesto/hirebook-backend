@@ -75,8 +75,7 @@ exports.register = [
 							if (err) { return apiResponse.ErrorResponse(res, err); }
 							let userData = {
 								id: user._id,
-								firstName: user.firstName,
-								lastName: user.lastName,
+								name: user.name,
 								email: user.email,
 								userType: user.userType
 							};
@@ -88,7 +87,7 @@ exports.register = [
 							const secret = CONFIG.JWT_SECRET;
 							//Generated JWT token with Payload and secret.
 							const token = jwt.sign(jwtPayload, secret, jwtData);
-							return apiResponse.successResponseWithData(res, "Registration Success.", {userData, token});
+							return apiResponse.successResponseWithData(res, "Registration Success.", { userData, token });
 						});
 					}).catch(err => {
 						console.log(err);
@@ -133,10 +132,8 @@ exports.login = [
 									if (user.status) {
 										let userData = {
 											id: user._id,
-											firstName: user.firstName,
-											lastName: user.lastName,
+											name: user.name,
 											email: user.email,
-											gitUrl: user.gitUrl,
 											userType: user.userType
 										};
 										//Prepare JWT token for authentication

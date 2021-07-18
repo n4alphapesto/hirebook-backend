@@ -4,14 +4,25 @@ exports.constants = {
 		email: "a0k03lf@gmail.com"
 	},
 	confirmEmails: {
-		from : "a0k03lf@gmail.com"
+		from: "a0k03lf@gmail.com"
 	},
-	jobRolesTypes: {
-		recruiter: "recruiter",
-		jobseeker: "jobseeker"
+	userTypes: {
+		RECRUITER: "RECRUITER",
+		JOBSEEKER: "JOBSEEKER"
 	},
-	experienceType:{
-		fresher: "fresher",
-		experienced: "experienced"
+	experienceType: {
+		FRESHER: 'FRESHER',
+		PROFESSIONAL: 'PROFESSIONAL'
+	},
+	expertiseLevel: {
+		FRESHER: "FRESHER",
+		INTERMIDIATE: "INTERMIDIATE",
+		EXPERIENCED: "EXPERIENCED"
+	},
+	applicationStatus: {
+		APPLIED: "APPLIED",
+		INTERVIEWING: "INTERVIEWING",
+		HIRING: "HIRING",
+		REJECTED: "REJECTED"
 	}
 };

@@ -24,8 +24,7 @@ exports.Recruiter = [auth,
 				return apiResponse.validationErrorWithData(res, "Validation Error.", errors.array());
 			} else {
 				// create query with RecruiterModel
-				console.log(req.body);
-				const recruiter = new RecruiterModel({ 
+				const recruiter = new RecruiterModel({
 					companyName: req.body.companyName,
 					userRole: req.body.userRole,
 					mobileNo: req.body.mobileNo,
@@ -40,8 +39,12 @@ exports.Recruiter = [auth,
 					facebookProfile: req.body.facebookProfile
 				})
 
-				recruiter.save();
-				return apiResponse.successResponseWithData(res, "check Console", req.body);
+				recruiter.save((error, result) => {
+					if (error) {
+						return apiResponse.ErrorResponse(res, "Error Saving Profile", error);
+					}
+					return apiResponse.successResponseWithData(res, "Profile Saved", result);
+				});
 			}
 		} catch (err) {
 			return apiResponse.ErrorResponse(res, err);
