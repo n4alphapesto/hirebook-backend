@@ -29,7 +29,9 @@ exports.JobList = [
   body("postedBy", "postedBy must be a String").isString(),
   function (req, res) {
     try {
-      const filterObj = {};
+      const filterObj = {
+        isDeleted: false,
+      };
       const body = req.body;
 
       if (body.postedBy) {

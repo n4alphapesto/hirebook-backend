@@ -12,6 +12,7 @@ const JobSchema = new Schema(
     skills: [SkillSchema],
     locations: [String],
     vacancies: { type: Number, require: true },
+    isDeleted: { type: Boolean, default: false },
   },
   { timestamps: true }
 );
