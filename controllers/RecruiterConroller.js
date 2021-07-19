@@ -21,9 +21,6 @@ exports.Recruiter = [
   body("companyPhotos", "company Photos must not be empty.").isArray({
     max: 5,
   }),
-  body("linkedinProfile", "linkedin Profile must not be empty.").notEmpty(),
-  body("twitterProfile", "twitter Profile must not be empty.").notEmpty(),
-  body("facebookProfile", "facebook Profile must not be empty.").notEmpty(),
   body("companyLogo", "companyLogo must be empty.").notEmpty(),
   (req, res) => {
     try {
@@ -40,7 +37,7 @@ exports.Recruiter = [
           errors.array()
         );
       } else {
-        const recruiter = new RecruiterModel({
+        const payload = {
           companyName: req.body.companyName,
           companyLogo: req.body.companyLogo,
           userRole: req.body.userRole,
@@ -51,11 +48,17 @@ exports.Recruiter = [
           noOfEmployees: req.body.noOfEmployees,
           aboutCompany: req.body.aboutCompany,
           companyPhotos: req.body.companyPhotos,
-          linkedinProfile: req.body.linkedinProfile,
-          twitterProfile: req.body.twitterProfile,
-          facebookProfile: req.body.facebookProfile,
-        });
+        }
 
+        if(req.body.linkedinProfile)
+          payload.linkedinProfile = req.body.linkedinProfile
+        if(req.body.twitterProfile)
+          payload.twitterProfile =  req.body.twitterProfile
+        if(req.body.facebookProfile)
+          payload.facebookProfile = req.body.facebookProfile
+
+        const recruiter = new RecruiterModel(payload);
+        
         recruiter.save((error, recruiter) => {
           if (error) {
             return apiResponse.ErrorResponse(

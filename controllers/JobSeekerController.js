@@ -16,7 +16,8 @@ exports.JobSeeker = [
   body("currentCTC", "current CTC must not be empty.").isNumeric(),
   body("noticePeriod", "notice Period must not be empty.").isNumeric(),
   body("resume", "resume must not be empty.").notEmpty(),
-  body("about", "about must not be empty.").notEmpty().isLength({ max: 500 }),
+  body("userPhoto", "User Photo must not be empty.").notEmpty(),
+  body("about", "about must not be empty.").notEmpty().isLength({ max: 1000 }),
   (req, res) => {
     try {
       const user = req.user;
@@ -45,6 +46,7 @@ exports.JobSeeker = [
           noticePeriod,
           resume,
           about,
+          userPhoto
         } = req.body;
 
         const jobSeeker = new JobSeekerModel({
@@ -58,6 +60,7 @@ exports.JobSeeker = [
           noticePeriod,
           resume,
           about,
+          userPhoto
         });
 
         jobSeeker.save((error, jobseeker) => {

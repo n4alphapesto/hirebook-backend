@@ -12,7 +12,7 @@ app.use("/auth/", authRouter);
 app.use("/job/", jobRouter);
 app.use("/masterdata/", staticRouter);
 app.use("/onBoard/", onBoardRouter);
-app.use("/uploads/", fileUpload);
+app.use("/files/", fileUpload);
 app.use("/getUser/", userRouter);
 
 module.exports = app;

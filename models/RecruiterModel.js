@@ -41,15 +41,12 @@ const RecruiterSchema = new Schema(
     },
     linkedinProfile: {
       type: DataTypes.String,
-      required: true,
     },
     twitterProfile: {
       type: DataTypes.String,
-      required: true,
     },
     facebookProfile: {
       type: DataTypes.String,
-      required: true,
     },
     notInterestedCandidates: {
       type: [DataTypes.ObjectId],

@@ -26,7 +26,6 @@ mongoose
     process.exit(1);
   });
 var db = mongoose.connection;
-
 var app = express();
 
 //don't show the log when it is test

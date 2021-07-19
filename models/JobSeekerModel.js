@@ -54,6 +54,10 @@ const JobSeekerSchema = new Schema(
       type: [DataTypes.ObjectId],
       required: false,
     },
+    userPhoto: {
+      type: DataTypes.ObjectId,
+      required: true
+    }
   },
   { timestamps: true }
 );
