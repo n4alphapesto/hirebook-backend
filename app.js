@@ -43,7 +43,9 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(cors());
 
 //Route Prefixes
-app.use("/", indexRouter);
+app.use("/status", (req,res)=>{
+	return apiResponse.successResponse(res, "Server is running!!");
+});
 app.use("/api/", apiRouter);
 
 // throw 404 if URL not found
