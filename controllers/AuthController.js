@@ -184,6 +184,8 @@ exports.login = [
                       const secret = CONFIG.JWT_SECRET;
                       //Generated JWT token with Payload and secret.
                       userData.token = jwt.sign(jwtPayload, secret, jwtData);
+                      userData.isOnboardingCompleted =
+                        user.isOnboardingCompleted;
                       return apiResponse.successResponseWithData(
                         res,
                         "Login Success.",
