@@ -1,10 +1,18 @@
-var express = require("express");
-var authRouter = require("./auth");
-var jobRouter = require("./job");
+const express = require("express");
+const authRouter = require("./auth");
+const userRouter = require("./user");
+const jobRouter = require("./job");
+const staticRouter = require("./static");
+const onBoardRouter = require("./OnBoard");
+const fileUpload = require("./fileUpload");
 
-var app = express();
+const app = express();
 
 app.use("/auth/", authRouter);
 app.use("/job/", jobRouter);
+app.use("/masterdata/", staticRouter);
+app.use("/onBoard/", onBoardRouter);
+app.use("/files/", fileUpload);
+app.use("/getUser/", userRouter);
 
 module.exports = app;

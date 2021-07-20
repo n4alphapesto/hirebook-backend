@@ -1,7 +1,24 @@
-var mongoose = require("mongoose");
+const mongoose = require("mongoose");
+const { constants } = require("../helpers/constants");
 
-var SkillSchema = new mongoose.Schema({
-    title: { type: String, required: true }
-})
+const Schema = mongoose.Schema;
+const DataTypes = Schema.Types;
 
-module.exports = mongoose.model("Skill", SkillSchema);
+const SkillsSchema = new Schema(
+  {
+    title: {
+      type: DataTypes.String,
+      required: true,
+    },
+    expertiseLevel: {
+      type: DataTypes.String,
+      enum: Object.values(constants.expertiseLevel),
+      default: constants.expertiseLevel.FRESHER,
+      required: true,
+    },
+  },
+  { _id: false }
+);
+
+module.exports = mongoose.model("Skill", SkillsSchema);
+module.exports = SkillsSchema;
