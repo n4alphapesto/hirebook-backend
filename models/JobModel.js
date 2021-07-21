@@ -1,8 +1,21 @@
 const mongoose = require("mongoose");
-
+const { constants } = require("../helpers/constants");
 const Schema = mongoose.Schema;
 const DataTypes = Schema.Types;
 const SkillSchema = require("./SkillModel");
+
+const applicantSchema = new Schema({
+  candidate: {
+    type: String,
+    required: true,
+  },
+  status: {
+    type: String,
+    enum: [constants.applicationStatus],
+    default: constants.applicationStatus.APPLIED,
+    required: true,
+  },
+});
 
 const JobSchema = new Schema(
   {
@@ -13,6 +26,10 @@ const JobSchema = new Schema(
     locations: [String],
     vacancies: { type: Number, require: true },
     isDeleted: { type: Boolean, default: false },
+    applicants: {
+      type: [applicantSchema],
+      default: [],
+    },
   },
   { timestamps: true }
 );

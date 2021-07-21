@@ -195,7 +195,7 @@ exports.scheduleInterview = [
     const { jobId, candidateId, interviewDate, interviewTime, message } =
       req.body;
 
-    JobModel.findOne({ _id: jobId }, (error, job) => {
+    JobModel.findOne({ _id: jobId, postedBy: user.id }, (error, job) => {
       if (error) {
         return apiResponse.ErrorResponse(res, "Operation Failed.", error);
       }
@@ -213,20 +213,32 @@ exports.scheduleInterview = [
           return apiResponse.ErrorResponse(res, "Candidate doesn't exists.");
         }
 
-        JobModel.updateOne(
-          { _id: jobId, "applicants.candidate": candidateId },
+        console.log(" jobid & candidateId ", {
+          jobId: mongoose.Types.ObjectId(jobId),
+          candidateId,
+        });
+        JobModel.findOneAndUpdate(
+          {
+            _id: mongoose.Types.ObjectId(jobId),
+            "applicants.candidate": candidateId,
+            "applicants.status": constants.applicationStatus.APPLIED,
+          },
           {
             $set: {
               "applicants.$.status": constants.applicationStatus.INTERVIEWING,
             },
           },
-          {
-            new: true,
-          },
+          { new: true },
           (error, result) => {
             if (error) {
               return apiResponse.ErrorResponse(res, "Operation Failed.", error);
             }
+
+            if (!result)
+              return apiResponse.ErrorResponse(
+                res,
+                "Unable to find candidate."
+              );
 
             mailer
               .send(
@@ -234,7 +246,7 @@ exports.scheduleInterview = [
                 user.email,
                 `Scheduled Interview on ${moment(interviewDate).format(
                   "DD/mm/yyyy"
-                )} at ${moment(interviewTime).format("hh:mm")}`,
+                )} at ${moment(interviewTime).format("hh:mm A")}`,
                 message
               )
               .then(() => {
@@ -280,7 +292,7 @@ exports.sendOfferLetter = [
 
     const { jobId, candidateId, message } = req.body;
 
-    JobModel.findOne({ _id: jobId }, (error, job) => {
+    JobModel.findOne({ _id: jobId, postedBy: user.id }, (error, job) => {
       if (error) {
         return apiResponse.ErrorResponse(res, "Operation Failed.", error);
       }
@@ -299,10 +311,14 @@ exports.sendOfferLetter = [
         }
 
         JobModel.updateOne(
-          { _id: jobId, "applicants.candidate": candidateId },
+          {
+            _id: mongoose.Types.ObjectId(jobId),
+            "applicants.candidate": candidateId,
+            "applicants.status": constants.applicationStatus.INTERVIEWING,
+          },
           {
             $set: {
-              "applicants.$.status": constants.applicationStatus.HIRING,
+              "applicants.$.status": constants.applicationStatus.HIRED,
             },
           },
           {
@@ -312,6 +328,12 @@ exports.sendOfferLetter = [
             if (error) {
               return apiResponse.ErrorResponse(res, "Operation Failed.", error);
             }
+
+            if (!result)
+              return apiResponse.ErrorResponse(
+                res,
+                "Unable to find candidate."
+              );
 
             mailer
               .send(
@@ -361,10 +383,9 @@ exports.sendRegretLetter = [
       );
     }
 
-    const { jobId, candidateId, interviewDate, interviewTime, message } =
-      req.body;
+    const { jobId, candidateId, message } = req.body;
 
-    JobModel.findOne({ _id: jobId }, (error, job) => {
+    JobModel.findOne({ _id: jobId, postedBy: user.id }, (error, job) => {
       if (error) {
         return apiResponse.ErrorResponse(res, "Operation Failed.", error);
       }
@@ -383,7 +404,11 @@ exports.sendRegretLetter = [
         }
 
         JobModel.updateOne(
-          { _id: jobId, "applicants.candidate": candidateId },
+          {
+            _id: mongoose.Types.ObjectId(jobId),
+            "applicants.candidate": candidateId,
+            "applicants.status": constants.applicationStatus.INTERVIEWING,
+          },
           {
             $set: {
               "applicants.$.status": constants.applicationStatus.REJECTED,
@@ -396,6 +421,12 @@ exports.sendRegretLetter = [
             if (error) {
               return apiResponse.ErrorResponse(res, "Operation Failed.", error);
             }
+
+            if (!result)
+              return apiResponse.ErrorResponse(
+                res,
+                "Unable to find candidate."
+              );
 
             mailer
               .send(
