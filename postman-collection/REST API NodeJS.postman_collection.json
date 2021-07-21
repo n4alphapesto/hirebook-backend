@@ -229,7 +229,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"title\": \"BackEnd Developer +10 Yrs Exp\",\n    \"description\": \"We need font end developer with knowledge of amzing designs, user experince, javascript knwoledge.\",\n    \"postedBy\": \"60f3cf1a655c1c1bebceb5ea\",\n    \"skills\": [\n        {\n            \"title\": \"NodeJs\",\n            \"expertiseLevel\": \"INTERMIDIATE\"\n        },\n        {\n            \"title\": \"Javascript\",\n            \"expertiseLevel\": \"FRESHER\"\n        },\n        {\n            \"title\": \"C++\",\n            \"expertiseLevel\": \"EXPERIENCED\"\n        }\n    ],\n    \"locations\": [\n        \"Banglore\"\n    ],\n    \"vacancies\": 3\n}",
+							"raw": "{\n    \"title\": \"FrontEnd Developer +10 Yrs Exp\",\n    \"description\": \"Job 2.\",\n    \"postedBy\": \"60f3cf1a655c1c1bebceb5ea\",\n    \"skills\": [\n        {\n            \"title\": \"NodeJs\",\n            \"expertiseLevel\": \"INTERMIDIATE\"\n        },\n        {\n            \"title\": \"Javascript\",\n            \"expertiseLevel\": \"FRESHER\"\n        },\n        {\n            \"title\": \"C++\",\n            \"expertiseLevel\": \"EXPERIENCED\"\n        }\n    ],\n    \"locations\": [\n        \"Banglore\"\n    ],\n    \"vacancies\": 3\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -353,7 +353,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"jobId\": \"60f6acca4eca5a44466b7f4c\"\n}",
+							"raw": "{\n    \"jobId\": \"60f7995ae502ee11b6eeb3fc\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -467,7 +467,12 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"jobId\": \"60f6acca4eca5a44466b7f4c\",\n    \"candidateId\": \"60f5942e5e3848459217f002\",\n    \"message\": \"Hey Raj. We have seen your excellent resume and shorlisted you for interview.\"\n}"
+							"raw": "{\n    \"jobId\": \"60f6acca4eca5a44466b7f4c\",\n    \"candidateId\": \"60f5942e5e3848459217f002\",\n    \"message\": \"Hey Raj. We have seen your excellent resume and shorlisted you for interview.\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
 						},
 						"url": {
 							"raw": "{{url}}/api/job/sendRegretLetter",
