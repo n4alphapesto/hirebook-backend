@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "4b78f4e3-563e-4008-8abf-d4e037885216",
+		"_postman_id": "70b98971-e825-45a6-8cc4-05d27bf23ab2",
 		"name": "REST API NodeJS",
 		"description": "A boilerplate for REST API Development with Node.js and Expressjs",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
@@ -78,6 +78,18 @@
 				},
 				{
 					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let response = pm.response.json();",
+									"pm.environment.set(\"token\", response.data.token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "POST",
 						"header": [
@@ -85,23 +97,18 @@
 								"key": "Content-Type",
 								"name": "Content-Type",
 								"value": "application/x-www-form-urlencoded",
-								"type": "text"
+								"type": "text",
+								"disabled": true
 							}
 						],
 						"body": {
-							"mode": "urlencoded",
-							"urlencoded": [
-								{
-									"key": "email",
-									"value": "n4alphapesto@gmail.com",
-									"type": "text"
-								},
-								{
-									"key": "password",
-									"value": "Test@123",
-									"type": "text"
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"rajtejani.usa@gmail.com\",\n    \"password\": \"123456\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
 								}
-							]
+							}
 						},
 						"url": {
 							"raw": "{{url}}/api/auth/login",
@@ -222,7 +229,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"title\": \"BackEnd Developer +10 Yrs Exp\",\n    \"description\": \"We need font end developer with knowledge of amzing designs, user experince, javascript knwoledge.\",\n    \"postedBy\": \"60f3cf1a655c1c1bebceb5ea\",\n    \"skills\": [\n        {\n            \"title\": \"NodeJs\",\n            \"expertiseLevel\": \"INTERMIDIATE\"\n        },\n        {\n            \"title\": \"Javascript\",\n            \"expertiseLevel\": \"FRESHER\"\n        },\n        {\n            \"title\": \"C++\",\n            \"expertiseLevel\": \"EXPERIENCED\"\n        }\n    ],\n    \"locations\": [\n        \"Banglore\"\n    ],\n    \"vacancies\": 3\n}",
+							"raw": "{\n    \"title\": \"FrontEnd Developer +10 Yrs Exp\",\n    \"description\": \"Job 2.\",\n    \"postedBy\": \"60f3cf1a655c1c1bebceb5ea\",\n    \"skills\": [\n        {\n            \"title\": \"NodeJs\",\n            \"expertiseLevel\": \"INTERMIDIATE\"\n        },\n        {\n            \"title\": \"Javascript\",\n            \"expertiseLevel\": \"FRESHER\"\n        },\n        {\n            \"title\": \"C++\",\n            \"expertiseLevel\": \"EXPERIENCED\"\n        }\n    ],\n    \"locations\": [\n        \"Banglore\"\n    ],\n    \"vacancies\": 3\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -328,6 +335,158 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Apply For Job",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"jobId\": \"60f7995ae502ee11b6eeb3fc\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/job/applyForJob",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"job",
+								"applyForJob"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Schedule Interview",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"jobId\": \"60f6acca4eca5a44466b7f4c\",\n    \"candidateId\": \"60f5942e5e3848459217f002\",\n    \"interviewDate\": \"2021-07-22T13:28:33.808Z\",\n    \"interviewTime\": \"2021-07-22T13:28:33.808Z\",\n    \"message\": \"Hey Raj. We have seen your excellent resume and shorlisted you for interview.\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/job/scheduleInterview",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"job",
+								"scheduleInterview"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Offer Letter",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"jobId\": \"60f6acca4eca5a44466b7f4c\",\n    \"candidateId\": \"60f5942e5e3848459217f002\",\n    \"message\": \"Hey Raj. We have seen your excellent resume and shorlisted you for interview.\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/job/sendOfferLetter",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"job",
+								"sendOfferLetter"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Regret Letter",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"jobId\": \"60f6acca4eca5a44466b7f4c\",\n    \"candidateId\": \"60f5942e5e3848459217f002\",\n    \"message\": \"Hey Raj. We have seen your excellent resume and shorlisted you for interview.\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/job/sendRegretLetter",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"job",
+								"sendRegretLetter"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -425,7 +584,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"experienceType\":\"FRESHER\",\r\n    \"experience\":2,\r\n    \"currentRole\": \"FrontEnd Developer\",\r\n    \"skills\": [{\r\n        \"title\": \"Java\",\r\n        \"expertiseLevel\": \"INTERMIDIATE\"\r\n    }],\r\n    \"currentLocation\":\"Mumbai\",\r\n    \"openToWork\": [\"Pune\", \"Surat\"],\r\n    \"currentCTC\": 500000,\r\n    \"noticePeriod\": 2,\r\n    \"resume\": \"60f3138a29593b1bb26d9806\",\r\n    \"about\": \"Hey I'm FrontEnd Developer in React\"\r\n}",
+							"raw": "{\r\n    \"experienceType\":\"FRESHER\",\r\n    \"experience\":2,\r\n    \"currentRole\": \"FrontEnd Developer\",\r\n    \"skills\": [{\r\n        \"title\": \"Java\",\r\n        \"expertiseLevel\": \"INTERMIDIATE\"\r\n    }],\r\n    \"currentLocation\":\"Mumbai\",\r\n    \"openToWork\": [\"Pune\", \"Surat\"],\r\n    \"currentCTC\": 500000,\r\n    \"noticePeriod\": 2,\r\n    \"resume\": \"60f3138a29593b1bb26d9806\",\r\n    \"userPhoto\": \"60f3138a29593b1bb26d9806\",\r\n    \"about\": \"Hey I'm FrontEnd Developer in React\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"

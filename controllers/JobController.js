@@ -2,11 +2,11 @@ const JobModel = require("../models/JobModel");
 const UserModel = require("../models/UserModel");
 const { body, validationResult } = require("express-validator");
 const { constants } = require("../helpers/constants");
-const { sanitizeBody, sanitize } = require("express-validator");
-const apiResponse = require("../helpers/apiResponse");
-const mailer = require("../helpers/mailer");
-const auth = require("../middlewares/jwt");
 const moment = require("moment");
+const { sanitizeBody, sanitize } = require("express-validator");
+const mailer = require("../helpers/mailer");
+const apiResponse = require("../helpers/apiResponse");
+const auth = require("../middlewares/jwt");
 var mongoose = require("mongoose");
 mongoose.set("useFindAndModify", false);
 
@@ -198,11 +198,12 @@ exports.applyForJob = [
         return apiResponse.ErrorResponse(res, "Job not found.", error);
       }
 
+      console.log(" JobId & candidate Id ", { jobId, userId: user.id });
       // Check if candidate has already applied or not
       JobModel.findOne(
         {
           _id: jobId,
-          applicants: { $elemMatch: { candidate: user._id } },
+          applicants: { $elemMatch: { candidate: user.id } },
         },
         (error, result) => {
           if (error) {
@@ -212,7 +213,7 @@ exports.applyForJob = [
           if (!result) {
             // if not applied before
             JobModel.updateOne(
-              { _id: jobId },
+              { _id: mongoose.Types.ObjectId(jobId) },
               {
                 $push: {
                   applicants: {
@@ -240,6 +241,288 @@ exports.applyForJob = [
           }
         }
       );
+    });
+  },
+];
+
+// This function sends interview scheduling mail to cadidate
+exports.scheduleInterview = [
+  auth,
+  body("jobId", "jobId must not be empty.").notEmpty(),
+  body("candidateId", "candidateId must not be empty.").notEmpty(),
+  body("interviewDate", "interviewDate must not be empty.").notEmpty(),
+  body("interviewTime", "interviewTime must not be empty.").notEmpty(),
+  body("message", "message must not be empty.").notEmpty(),
+  sanitize("*"),
+  (req, res) => {
+    const user = req.user;
+
+    if (user.userType !== constants.userTypes.RECRUITER)
+      return apiResponse.unauthorizedResponse(res, "Invalid Permission.");
+
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return apiResponse.validationErrorWithData(
+        res,
+        "Validation Error.",
+        errors.array()
+      );
+    }
+
+    const { jobId, candidateId, interviewDate, interviewTime, message } =
+      req.body;
+
+    JobModel.findOne({ _id: jobId, postedBy: user.id }, (error, job) => {
+      if (error) {
+        return apiResponse.ErrorResponse(res, "Operation Failed.", error);
+      }
+
+      if (!job) {
+        return apiResponse.ErrorResponse(res, "Job not found.");
+      }
+
+      UserModel.findOne({ _id: candidateId }, (error, user) => {
+        if (error) {
+          return apiResponse.ErrorResponse(res, "Operation Failed.", error);
+        }
+
+        if (!user) {
+          return apiResponse.ErrorResponse(res, "Candidate doesn't exists.");
+        }
+
+        JobModel.findOneAndUpdate(
+          {
+            _id: mongoose.Types.ObjectId(jobId),
+            "applicants.candidate": candidateId,
+            "applicants.status": constants.applicationStatus.APPLIED,
+          },
+          {
+            $set: {
+              "applicants.$.status": constants.applicationStatus.INTERVIEWING,
+            },
+          },
+          { new: true },
+          (error, result) => {
+            if (error) {
+              return apiResponse.ErrorResponse(res, "Operation Failed.", error);
+            }
+
+            if (!result)
+              return apiResponse.ErrorResponse(
+                res,
+                "Unable to find candidate."
+              );
+
+            mailer
+              .send(
+                constants.confirmEmails.from,
+                user.email,
+                `Scheduled Interview on ${moment(interviewDate).format(
+                  "DD/mm/yyyy"
+                )} at ${moment(interviewTime).format("hh:mm A")}`,
+                message
+              )
+              .then(() => {
+                return apiResponse.successResponse(res, "Interview scheduled.");
+              })
+              .catch((error) => {
+                if (error) {
+                  return apiResponse.ErrorResponse(
+                    res,
+                    "Operation Failed.",
+                    error
+                  );
+                }
+              });
+          }
+        );
+      });
+    });
+  },
+];
+
+// This function sends offer letter to candidtes
+exports.sendOfferLetter = [
+  auth,
+  body("jobId", "jobId must not be empty.").notEmpty(),
+  body("candidateId", "candidateId must not be empty.").notEmpty(),
+  body("message", "message must not be empty.").notEmpty(),
+  sanitize("*"),
+  (req, res) => {
+    const user = req.user;
+
+    if (user.userType !== constants.userTypes.RECRUITER)
+      return apiResponse.unauthorizedResponse(res, "Invalid Permission.");
+
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return apiResponse.validationErrorWithData(
+        res,
+        "Validation Error.",
+        errors.array()
+      );
+    }
+
+    const { jobId, candidateId, message } = req.body;
+
+    JobModel.findOne({ _id: jobId, postedBy: user.id }, (error, job) => {
+      if (error) {
+        return apiResponse.ErrorResponse(res, "Operation Failed.", error);
+      }
+
+      if (!job) {
+        return apiResponse.ErrorResponse(res, "Job not found.");
+      }
+
+      UserModel.findOne({ _id: candidateId }, (error, user) => {
+        if (error) {
+          return apiResponse.ErrorResponse(res, "Operation Failed.", error);
+        }
+
+        if (!user) {
+          return apiResponse.ErrorResponse(res, "Candidate doesn't exists.");
+        }
+
+        JobModel.updateOne(
+          {
+            _id: mongoose.Types.ObjectId(jobId),
+            "applicants.candidate": candidateId,
+            "applicants.status": constants.applicationStatus.INTERVIEWING,
+          },
+          {
+            $set: {
+              "applicants.$.status": constants.applicationStatus.HIRED,
+            },
+          },
+          {
+            new: true,
+          },
+          (error, result) => {
+            if (error) {
+              return apiResponse.ErrorResponse(res, "Operation Failed.", error);
+            }
+
+            if (!result)
+              return apiResponse.ErrorResponse(
+                res,
+                "Unable to find candidate."
+              );
+
+            mailer
+              .send(
+                constants.confirmEmails.from,
+                user.email,
+                `Offer Letter`,
+                message
+              )
+              .then(() => {
+                return apiResponse.successResponse(res, "Offer Letter Sent.");
+              })
+              .catch((error) => {
+                if (error) {
+                  return apiResponse.ErrorResponse(
+                    res,
+                    "Operation Failed.",
+                    error
+                  );
+                }
+              });
+          }
+        );
+      });
+    });
+  },
+];
+
+// This function sends regret letter
+exports.sendRegretLetter = [
+  auth,
+  body("jobId", "jobId must not be empty.").notEmpty(),
+  body("candidateId", "candidateId must not be empty.").notEmpty(),
+  body("message", "message must not be empty.").notEmpty(),
+  sanitize("*"),
+  (req, res) => {
+    const user = req.user;
+
+    if (user.userType !== constants.userTypes.RECRUITER)
+      return apiResponse.unauthorizedResponse(res, "Invalid Permission.");
+
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return apiResponse.validationErrorWithData(
+        res,
+        "Validation Error.",
+        errors.array()
+      );
+    }
+
+    const { jobId, candidateId, message } = req.body;
+
+    JobModel.findOne({ _id: jobId, postedBy: user.id }, (error, job) => {
+      if (error) {
+        return apiResponse.ErrorResponse(res, "Operation Failed.", error);
+      }
+
+      if (!job) {
+        return apiResponse.ErrorResponse(res, "Job not found.");
+      }
+
+      UserModel.findOne({ _id: candidateId }, (error, user) => {
+        if (error) {
+          return apiResponse.ErrorResponse(res, "Operation Failed.", error);
+        }
+
+        if (!user) {
+          return apiResponse.ErrorResponse(res, "Candidate doesn't exists.");
+        }
+
+        JobModel.updateOne(
+          {
+            _id: mongoose.Types.ObjectId(jobId),
+            "applicants.candidate": candidateId,
+            "applicants.status": constants.applicationStatus.INTERVIEWING,
+          },
+          {
+            $set: {
+              "applicants.$.status": constants.applicationStatus.REJECTED,
+            },
+          },
+          {
+            new: true,
+          },
+          (error, result) => {
+            if (error) {
+              return apiResponse.ErrorResponse(res, "Operation Failed.", error);
+            }
+
+            if (!result)
+              return apiResponse.ErrorResponse(
+                res,
+                "Unable to find candidate."
+              );
+
+            mailer
+              .send(
+                constants.confirmEmails.from,
+                user.email,
+                `Regret Letter`,
+                message
+              )
+              .then(() => {
+                return apiResponse.successResponse(res, "Regret Letter Sent.");
+              })
+              .catch((error) => {
+                if (error) {
+                  return apiResponse.ErrorResponse(
+                    res,
+                    "Operation Failed.",
+                    error
+                  );
+                }
+              });
+          }
+        );
+      });
     });
   },
 ];
