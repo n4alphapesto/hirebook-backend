@@ -22,7 +22,7 @@ exports.constants = {
 	applicationStatus: {
 		APPLIED: "APPLIED",
 		INTERVIEWING: "INTERVIEWING",
-		HIRING: "HIRING",
+		HIRED: "HIRED",
 		REJECTED: "REJECTED"
 	}
 };
