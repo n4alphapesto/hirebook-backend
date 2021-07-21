@@ -6,9 +6,7 @@ const moment = require("moment");
 const { sanitizeBody, sanitize } = require("express-validator");
 const mailer = require("../helpers/mailer");
 const apiResponse = require("../helpers/apiResponse");
-const mailer = require("../helpers/mailer");
 const auth = require("../middlewares/jwt");
-const moment = require("moment");
 var mongoose = require("mongoose");
 mongoose.set("useFindAndModify", false);
 
@@ -200,11 +198,12 @@ exports.applyForJob = [
         return apiResponse.ErrorResponse(res, "Job not found.", error);
       }
 
+      console.log(" JobId & candidate Id ", { jobId, userId: user.id });
       // Check if candidate has already applied or not
       JobModel.findOne(
         {
           _id: jobId,
-          applicants: { $elemMatch: { candidate: user._id } },
+          applicants: { $elemMatch: { candidate: user.id } },
         },
         (error, result) => {
           if (error) {
@@ -214,7 +213,7 @@ exports.applyForJob = [
           if (!result) {
             // if not applied before
             JobModel.updateOne(
-              { _id: jobId },
+              { _id: mongoose.Types.ObjectId(jobId) },
               {
                 $push: {
                   applicants: {
@@ -291,10 +290,6 @@ exports.scheduleInterview = [
           return apiResponse.ErrorResponse(res, "Candidate doesn't exists.");
         }
 
-        console.log(" jobid & candidateId ", {
-          jobId: mongoose.Types.ObjectId(jobId),
-          candidateId,
-        });
         JobModel.findOneAndUpdate(
           {
             _id: mongoose.Types.ObjectId(jobId),

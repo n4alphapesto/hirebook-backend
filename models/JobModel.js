@@ -11,8 +11,7 @@ const applicantSchema = new Schema({
   },
   status: {
     type: String,
-    enum: [Object.values(constants.applicationStatus)],
-    default: constants.applicationStatus.APPLIED,
+    enum: Object.values(constants.applicationStatus),
     required: true,
   },
 });
