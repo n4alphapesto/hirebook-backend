@@ -6,7 +6,9 @@ const moment = require("moment");
 const { sanitizeBody, sanitize } = require("express-validator");
 const mailer = require("../helpers/mailer");
 const apiResponse = require("../helpers/apiResponse");
+const mailer = require("../helpers/mailer");
 const auth = require("../middlewares/jwt");
+const moment = require("moment");
 var mongoose = require("mongoose");
 mongoose.set("useFindAndModify", false);
 
@@ -165,6 +167,82 @@ exports.addJob = [
       //throw error in json response with status 500.
       return apiResponse.ErrorResponse(res, err);
     }
+  },
+];
+
+exports.applyForJob = [
+  auth,
+  body("jobId", "jobId must not be empty.").notEmpty(),
+  (req, res) => {
+    const user = req.user;
+
+    if (user.userType !== constants.userTypes.JOBSEEKER)
+      return apiResponse.unauthorizedResponse(res, "Invalid Permission.");
+
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return apiResponse.validationErrorWithData(
+        res,
+        "Validation Error.",
+        errors.array()
+      );
+    }
+
+    const jobId = req.body.jobId;
+
+    // find Job
+    JobModel.findOne({ _id: jobId }, (error, result) => {
+      if (error) {
+        return apiResponse.ErrorResponse(res, "Operation Failed.", error);
+      }
+
+      if (!result) {
+        return apiResponse.ErrorResponse(res, "Job not found.", error);
+      }
+
+      // Check if candidate has already applied or not
+      JobModel.findOne(
+        {
+          _id: jobId,
+          applicants: { $elemMatch: { candidate: user._id } },
+        },
+        (error, result) => {
+          if (error) {
+            return apiResponse.ErrorResponse(res, "Operation Failed.", error);
+          }
+
+          if (!result) {
+            // if not applied before
+            JobModel.updateOne(
+              { _id: jobId },
+              {
+                $push: {
+                  applicants: {
+                    candidate: user.id,
+                    status: constants.applicationStatus.APPLIED,
+                  },
+                },
+              },
+              { new: true },
+              (error, result) => {
+                if (error) {
+                  return apiResponse.ErrorResponse(
+                    res,
+                    "Operation Failed.",
+                    error
+                  );
+                }
+
+                return apiResponse.successResponse(res, "Applied successfully");
+              }
+            );
+          } else {
+            // if applied before
+            return apiResponse.ErrorResponse(res, "Already applied.");
+          }
+        }
+      );
+    });
   },
 ];
 

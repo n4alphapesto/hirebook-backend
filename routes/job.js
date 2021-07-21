@@ -9,5 +9,7 @@ router.get("/jobById", JobController.JobById);
 router.post("/scheduleInterview", JobController.scheduleInterview);
 router.post("/sendOfferLetter", JobController.sendOfferLetter);
 router.post("/sendRegretLetter", JobController.sendRegretLetter);
+router.post("/applyForJob", JobController.applyForJob);
+// router.post("/scheduleInterview", JobController.scheduleInterview);
 
 module.exports = router;
