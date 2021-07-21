@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "73c12871-d132-40a0-a9f4-d2c5fb44404d",
+		"_postman_id": "4b78f4e3-563e-4008-8abf-d4e037885216",
 		"name": "REST API NodeJS",
 		"description": "A boilerplate for REST API Development with Node.js and Expressjs",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
@@ -41,7 +41,7 @@
 								},
 								{
 									"key": "email",
-									"value": "avinashjsdev@gmail.com",
+									"value": "n4alphapesto@gmail.com",
 									"type": "text"
 								},
 								{
@@ -93,7 +93,7 @@
 							"urlencoded": [
 								{
 									"key": "email",
-									"value": "avinashjsdev@gmail.com",
+									"value": "n4alphapesto@gmail.com",
 									"type": "text"
 								},
 								{
@@ -134,7 +134,7 @@
 							"urlencoded": [
 								{
 									"key": "email",
-									"value": "avinashjsdev@gmail.com",
+									"value": "n4alphapesto@gmail.com",
 									"type": "text"
 								},
 								{
@@ -175,7 +175,7 @@
 							"urlencoded": [
 								{
 									"key": "email",
-									"value": "avinashjsdev@gmail.com",
+									"value": "n4alphapesto@gmail.com",
 									"type": "text"
 								}
 							]
@@ -202,14 +202,18 @@
 				{
 					"name": "Add Job",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [
-							{
-								"key": "Content-Type",
-								"name": "Content-Type",
-								"value": "application/x-www-form-urlencoded",
-								"type": "text"
-							},
 							{
 								"key": "Authorization",
 								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwYmNmYTVlZWM4OWMwNjE2YzUwMzc1ZiIsImZpcnN0TmFtZSI6IkF2aW5hc2giLCJsYXN0TmFtZSI6Ikt1bWFyIiwiZW1haWwiOiJhdmluYXNoanNkZXZAZ21haWwuY29tIiwiZ2l0VXJsIjoiaHR0cHM6JiN4MkY7JiN4MkY7YXBpLmdpdGh1Yi5jb20mI3gyRjt1c2VycyYjeDJGO2F2aW5hc2hhcmEmI3gyRjtyZXBvcyIsInVzZXJUeXBlIjoiZnJlZWxhbmNlciIsImlhdCI6MTYyMjk5ODEyMSwiZXhwIjoxNjIzMTcwOTIxfQ.1aLhwWO-wngbQ0AOETgw4c7zpelRyDJi9UzuQadHSYw",
@@ -217,49 +221,14 @@
 							}
 						],
 						"body": {
-							"mode": "urlencoded",
-							"urlencoded": [
-								{
-									"key": "title",
-									"value": "testing book ",
-									"type": "text"
-								},
-								{
-									"key": "description",
-									"value": "testing book desc",
-									"type": "text"
-								},
-								{
-									"key": "isbn",
-									"value": "3214htrff4",
-									"type": "text"
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"BackEnd Developer +10 Yrs Exp\",\n    \"description\": \"We need font end developer with knowledge of amzing designs, user experince, javascript knwoledge.\",\n    \"postedBy\": \"60f3cf1a655c1c1bebceb5ea\",\n    \"skills\": [\n        {\n            \"title\": \"NodeJs\",\n            \"expertiseLevel\": \"INTERMIDIATE\"\n        },\n        {\n            \"title\": \"Javascript\",\n            \"expertiseLevel\": \"FRESHER\"\n        },\n        {\n            \"title\": \"C++\",\n            \"expertiseLevel\": \"EXPERIENCED\"\n        }\n    ],\n    \"locations\": [\n        \"Banglore\"\n    ],\n    \"vacancies\": 3\n}",
+							"options": {
+								"raw": {
+									"language": "json"
 								}
-							]
-						},
-						"url": {
-							"raw": "{{url}}/api/book",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"api",
-								"book"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Job List",
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwYmNmYTVlZWM4OWMwNjE2YzUwMzc1ZiIsImZpcnN0TmFtZSI6IkF2aW5hc2giLCJsYXN0TmFtZSI6Ikt1bWFyIiwiZW1haWwiOiJhdmluYXNoanNkZXZAZ21haWwuY29tIiwiZ2l0VXJsIjoiaHR0cHM6JiN4MkY7JiN4MkY7YXBpLmdpdGh1Yi5jb20mI3gyRjt1c2VycyYjeDJGO2F2aW5hc2hhcmEmI3gyRjtyZXBvcyIsInVzZXJUeXBlIjoiZnJlZWxhbmNlciIsImlhdCI6MTYyMjk5ODEyMSwiZXhwIjoxNjIzMTcwOTIxfQ.1aLhwWO-wngbQ0AOETgw4c7zpelRyDJi9UzuQadHSYw",
-								"type": "text"
 							}
-						],
+						},
 						"url": {
 							"raw": "{{url}}/api/job",
 							"host": [
@@ -274,105 +243,87 @@
 					"response": []
 				},
 				{
-					"name": "Apply Job",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZDQwMzc0ODllY2I2ZDUyNjAzZDQ1ZjMiLCJmaXJzdE5hbWUiOiJ0ZXN0IiwibGFzdE5hbWUiOiJ0ZXN0aW5nIiwiZW1haWwiOiJ0ZXN0QHRlc3RpbmcuY29tIiwiaWF0IjoxNTY0NzQ0NzQ4LCJleHAiOjE1NjQ3NTE5NDh9.gE2DjhWgNmPFyy7K21MEC4bIm3gbbDicdE_eorFIZ0o",
-								"type": "text"
-							}
-						],
-						"url": {
-							"raw": "{{url}}/api/book/5d43d14a246036209713e667",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"api",
-								"book",
-								"5d43d14a246036209713e667"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Job By Email",
+					"name": "Job List",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [
 							{
 								"key": "Authorization",
 								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwYmNmYTVlZWM4OWMwNjE2YzUwMzc1ZiIsImZpcnN0TmFtZSI6IkF2aW5hc2giLCJsYXN0TmFtZSI6Ikt1bWFyIiwiZW1haWwiOiJhdmluYXNoanNkZXZAZ21haWwuY29tIiwiZ2l0VXJsIjoiaHR0cHM6JiN4MkY7JiN4MkY7YXBpLmdpdGh1Yi5jb20mI3gyRjt1c2VycyYjeDJGO2F2aW5hc2hhcmEmI3gyRjtyZXBvcyIsInVzZXJUeXBlIjoiZnJlZWxhbmNlciIsImlhdCI6MTYyMjk5ODEyMSwiZXhwIjoxNjIzMTcwOTIxfQ.1aLhwWO-wngbQ0AOETgw4c7zpelRyDJi9UzuQadHSYw",
 								"type": "text"
-							},
-							{
-								"key": "Content-Type",
-								"name": "Content-Type",
-								"value": "application/x-www-form-urlencoded",
-								"type": "text"
 							}
 						],
 						"body": {
-							"mode": "urlencoded",
-							"urlencoded": [
-								{
-									"key": "title",
-									"value": "testing book 123 456",
-									"type": "text"
-								},
-								{
-									"key": "description",
-									"value": "testing book desc 123 456",
-									"type": "text"
-								},
-								{
-									"key": "isbn",
-									"value": "3214htrff445",
-									"type": "text"
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
 								}
-							]
+							}
 						},
 						"url": {
-							"raw": "{{url}}/api/job/avinashjsdev@gmail.com",
+							"raw": "{{url}}/api/job",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
 								"api",
-								"job",
-								"avinashjsdev@gmail.com"
+								"job"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "Job By Applicant",
+					"name": "Get Job By Id",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwYmNmYTVlZWM4OWMwNjE2YzUwMzc1ZiIsImZpcnN0TmFtZSI6IkF2aW5hc2giLCJsYXN0TmFtZSI6Ikt1bWFyIiwiZW1haWwiOiJhdmluYXNoanNkZXZAZ21haWwuY29tIiwiZ2l0VXJsIjoiaHR0cHM6JiN4MkY7JiN4MkY7YXBpLmdpdGh1Yi5jb20mI3gyRjt1c2VycyYjeDJGO2F2aW5hc2hhcmEmI3gyRjtyZXBvcyIsInVzZXJUeXBlIjoiZnJlZWxhbmNlciIsImlhdCI6MTYyMjk5ODEyMSwiZXhwIjoxNjIzMTcwOTIxfQ.1aLhwWO-wngbQ0AOETgw4c7zpelRyDJi9UzuQadHSYw",
-								"type": "text"
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": \"60f40b55844d5b2bd2c109e6\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
 							}
-						],
+						},
 						"url": {
-							"raw": "{{url}}/api/job/user/60bcfa5eec89c0616c50375f",
+							"raw": "{{url}}/api/job/jobById",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
 								"api",
 								"job",
-								"user",
-								"60bcfa5eec89c0616c50375f"
+								"jobById"
 							]
 						}
 					},
@@ -460,11 +411,21 @@
 				{
 					"name": "jobSeeker",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"experienceType\":\"fresher\",\r\n    \"experience\":2,\r\n    \"currentRole\": \"Tester\",\r\n    \"skills\": [{\r\n        \"title\": \"sadasd\",\r\n        \"expertiseLevel\": \"fresher\"\r\n    }],\r\n    \"currentLocation\":\"dasd\",\r\n    \"openToWork\": \"SAdasd\",\r\n    \"currentCTC\": 5000,\r\n    \"noticePeriod\": 2,\r\n    \"resume\": \"ASdasd\"\r\n}",
+							"raw": "{\r\n    \"experienceType\":\"FRESHER\",\r\n    \"experience\":2,\r\n    \"currentRole\": \"FrontEnd Developer\",\r\n    \"skills\": [{\r\n        \"title\": \"Java\",\r\n        \"expertiseLevel\": \"INTERMIDIATE\"\r\n    }],\r\n    \"currentLocation\":\"Mumbai\",\r\n    \"openToWork\": [\"Pune\", \"Surat\"],\r\n    \"currentCTC\": 500000,\r\n    \"noticePeriod\": 2,\r\n    \"resume\": \"60f3138a29593b1bb26d9806\",\r\n    \"about\": \"Hey I'm FrontEnd Developer in React\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -488,11 +449,21 @@
 				{
 					"name": "Recruiter",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"companyName\":\"test\",\r\n    \"userRole\":\"Test\",\r\n    \"mobileNo\":\"55555555555\",\r\n    \"locations\":[\"asdasd\"],\r\n    \"website\":\"https://google.com\",\r\n    \"foundationYear\":2021,\r\n    \"noOfEmployees\":3,\r\n    \"about\":\"ASdsad\",\r\n    \"companyPhotos\":[\"companyPhotos1\",\"companyPhotos2\"],\r\n    \"linkedinProfile\":\"https://www.linkedin.com/\",\r\n    \"twitterProfile\": \"https://www.twitter.com/\",\r\n    \"facebookProfile\": \"https://www.twitter.com/\"\r\n}",
+							"raw": "{\r\n    \"companyName\":\"test\",\r\n    \"userRole\":\"Test\",\r\n    \"mobileNo\":\"55555555555\",\r\n    \"locations\":[\"Mumbai\", \"Pune\", \"Banglore\"],\r\n    \"website\":\"https://google.com\",\r\n    \"foundationYear\":2021,\r\n    \"noOfEmployees\":3,\r\n    \"aboutCompany\":\"Hey There.\",\r\n    \"companyPhotos\":[\"60f3138a29593b1bb26d9806\",\"60f3141f2db28e1c590baf5d\"],\r\n    \"linkedinProfile\":\"https://www.linkedin.com/\",\r\n    \"twitterProfile\": \"https://www.twitter.com/\",\r\n    \"facebookProfile\": \"https://www.twitter.com/\",\r\n    \"companyLogo\": \"60f314c6e74ac11c99d9eb28\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -527,9 +498,9 @@
 							"mode": "formdata",
 							"formdata": [
 								{
-									"key": "file",
+									"key": "files",
 									"type": "file",
-									"src": []
+									"src": "/Users/imac/Desktop/PRD-Hirebook.pdf"
 								}
 							]
 						},
@@ -541,6 +512,40 @@
 							"path": [
 								"api",
 								"uploads"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "get user",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/getUser/",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"getUser",
+								""
 							]
 						}
 					},

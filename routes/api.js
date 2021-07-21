@@ -1,5 +1,6 @@
 const express = require("express");
 const authRouter = require("./auth");
+const userRouter = require("./user");
 const jobRouter = require("./job");
 const staticRouter = require("./static");
 const onBoardRouter = require("./OnBoard");
@@ -11,6 +12,7 @@ app.use("/auth/", authRouter);
 app.use("/job/", jobRouter);
 app.use("/masterdata/", staticRouter);
 app.use("/onBoard/", onBoardRouter);
-app.use("/uploads/", fileUpload);
+app.use("/files/", fileUpload);
+app.use("/getUser/", userRouter);
 
 module.exports = app;
