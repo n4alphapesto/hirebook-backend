@@ -4,17 +4,20 @@ const Schema = mongoose.Schema;
 const DataTypes = Schema.Types;
 const SkillSchema = require("./SkillModel");
 
-const applicantSchema = new Schema({
-  candidate: {
-    type: String,
-    required: true,
+const applicantSchema = new Schema(
+  {
+    candidate: {
+      type: String,
+      required: true,
+    },
+    status: {
+      type: String,
+      enum: Object.values(constants.applicationStatus),
+      required: true,
+    },
   },
-  status: {
-    type: String,
-    enum: Object.values(constants.applicationStatus),
-    required: true,
-  },
-});
+  { timestamps: true }
+);
 
 const JobSchema = new Schema(
   {

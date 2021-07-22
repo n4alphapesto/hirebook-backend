@@ -16,7 +16,7 @@ exports.constants = {
   },
   expertiseLevel: {
     FRESHER: "FRESHER",
-    INTERMIDIATE: "INTERMIDIATE",
+    INTERMEDIATE: "INTERMEDIATE",
     EXPERIENCED: "EXPERIENCED",
   },
   applicationStatus: {

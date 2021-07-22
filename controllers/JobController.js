@@ -17,7 +17,11 @@ function jobData(data) {
   this.description = data.description;
   this.createdAt = data.createdAt;
   this.skills = data.skills;
-  (this.vacancies = data.vacancies), (this.postedBy = data.postedBy);
+  this.vacancies = data.vacancies;
+  this.postedBy = data.postedBy;
+  this.locations = data.locations;
+  this.updatedAt = data.updatedAt;
+  this.isDeleted = data.isDeleted;
 }
 
 /**
@@ -30,6 +34,8 @@ function jobData(data) {
 exports.JobList = [
   auth,
   body("postedBy", "postedBy must be a String").isString(),
+  body("limit", "postedBy must be a String").isString(),
+  body("skip", "postedBy must be a String").isString(),
   function (req, res) {
     try {
       const filterObj = {
@@ -41,20 +47,34 @@ exports.JobList = [
         filterObj.postedBy = body.postedBy;
       }
 
-      JobModel.find(filterObj)
+      JobModel.find(
+        filterObj,
+        {},
+        {
+          limit: body.limit || 20,
+          skip: body.skip || 0,
+        }
+      )
         .sort("-createdAt")
         .then((Jobs) => {
           if (Jobs.length > 0) {
-            let JobData = [];
+            let jobs = [];
             Jobs.forEach((job) => {
               let data = new jobData(job);
-              JobData.push(data);
+              jobs.push(data);
             });
-            return apiResponse.successResponseWithData(
-              res,
-              "Operation success",
-              JobData
-            );
+
+            JobModel.count(filterObj, (err, count) => {
+              if (err) {
+                return apiResponse.ErrorResponse(res, "Operation Failed.", err);
+              }
+
+              return apiResponse.successResponseWithData(
+                res,
+                "Operation success",
+                { jobs, count }
+              );
+            });
           } else {
             return apiResponse.successResponseWithData(
               res,
@@ -79,11 +99,10 @@ exports.JobList = [
  */
 exports.JobById = [
   auth,
+  body("id", "Id must not be empty.").notEmpty(),
   function (req, res) {
     try {
-      const jobId= req.params.jobId;
-      if(!jobId) return apiResponse.ErrorResponse(res, "Operation Failed, Please provide valid user id.");
-      JobModel.findOne({ _id: jobId }, (error, job) => {
+      JobModel.findOne({ _id: req.body.id }, (error, job) => {
         if (error) {
           return apiResponse.ErrorResponse(res, "Operation Failed.", error);
         }
@@ -199,7 +218,6 @@ exports.applyForJob = [
         return apiResponse.ErrorResponse(res, "Job not found.", error);
       }
 
-      console.log(" JobId & candidate Id ", { jobId, userId: user.id });
       // Check if candidate has already applied or not
       JobModel.findOne(
         {
@@ -243,6 +261,34 @@ exports.applyForJob = [
         }
       );
     });
+  },
+];
+
+exports.getJobApplicants = [
+  auth,
+  body("jobId", "jobId must not be empty").notEmpty().isString(),
+  (req, res) => {
+    JobModel.findOne({ _id: req.body.jobId }, { applicants: 1, _id: 0 })
+      .slice("applicants", 5) // Test this statement
+      .populate({
+        path: "applicants",
+        populate: {
+          path: "candidate",
+          model: "User",
+          select: "_id name email userType",
+          populate: {
+            path: "jobseeker",
+            model: "JobSeeker",
+          },
+        },
+      })
+      .exec((err, applicants) => {
+        if (err) {
+          return apiResponse.ErrorResponse(res, "Operation Failed.", err);
+        }
+        // TODO: Add limit and skip here
+        return apiResponse.successResponseWithData(res, "Success.", applicants);
+      });
   },
 ];
 
