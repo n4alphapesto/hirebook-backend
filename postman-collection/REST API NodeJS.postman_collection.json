@@ -22,39 +22,8 @@
 							}
 						],
 						"body": {
-							"mode": "urlencoded",
-							"urlencoded": [
-								{
-									"key": "firstName",
-									"value": "Avinash",
-									"type": "text"
-								},
-								{
-									"key": "lastName",
-									"value": "Kumar",
-									"type": "text"
-								},
-								{
-									"key": "password",
-									"value": "Test@123",
-									"type": "text"
-								},
-								{
-									"key": "email",
-									"value": "n4alphapesto@gmail.com",
-									"type": "text"
-								},
-								{
-									"key": "gitUrl",
-									"value": "https://api.github.com/users/avinashara/repos",
-									"type": "text"
-								},
-								{
-									"key": "userType",
-									"value": "freelancer",
-									"type": "text"
-								}
-							]
+							"mode": "raw",
+							"raw": ""
 						},
 						"url": {
 							"raw": "{{url}}/api/auth/register?=",
@@ -229,7 +198,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"title\": \"FrontEnd Developer +10 Yrs Exp\",\n    \"description\": \"Job 2.\",\n    \"postedBy\": \"60f3cf1a655c1c1bebceb5ea\",\n    \"skills\": [\n        {\n            \"title\": \"NodeJs\",\n            \"expertiseLevel\": \"INTERMIDIATE\"\n        },\n        {\n            \"title\": \"Javascript\",\n            \"expertiseLevel\": \"FRESHER\"\n        },\n        {\n            \"title\": \"C++\",\n            \"expertiseLevel\": \"EXPERIENCED\"\n        }\n    ],\n    \"locations\": [\n        \"Banglore\"\n    ],\n    \"vacancies\": 3\n}",
+							"raw": "{\n    \"title\": \"Ui/Ux Designer\",\n    \"description\": \"Looking for an experienced UI/UX designer for a revamping a tech-enabled resume evaluation platform, from a mobile-first approach. \\n Required Skills \\n a) UI, UX, interactivity design \\n b) Graphics design experience a plus \\n c) Wireframing and UI prototyping \\n d) Experience in making architectural recommendations \\n e) Ability to communicate clearly \\n f) Dedication to meet project deadlines in a timely manner \\n g) Attention to details\",\n    \"skills\": [\n        {\n            \"title\": \"NodeJs\",\n            \"expertiseLevel\": \"INTERMEDIATE\"\n        },\n        {\n            \"title\": \"Javascript\",\n            \"expertiseLevel\": \"FRESHER\"\n        },\n        {\n            \"title\": \"C++\",\n            \"expertiseLevel\": \"EXPERIENCED\"\n        }\n    ],\n    \"locations\": [\n        \"Banglore\"\n    ],\n    \"vacancies\": 3\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -275,7 +244,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "",
+							"raw": "{\n    \"postedBy\": \"60f595d5d0b19546d6cfed20\",\n    \"limit\": 1,\n    \"skip\": 0\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -315,7 +284,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"id\": \"60f40b55844d5b2bd2c109e6\"\n}",
+							"raw": "{\n    \"id\": \"60f7995ae502ee11b6eeb3fc\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -353,7 +322,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"jobId\": \"60f7995ae502ee11b6eeb3fc\"\n}",
+							"raw": "{\n    \"jobId\": \"60fc24fa7a0f8e5224892c82\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -391,7 +360,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"jobId\": \"60f6acca4eca5a44466b7f4c\",\n    \"candidateId\": \"60f5942e5e3848459217f002\",\n    \"interviewDate\": \"2021-07-22T13:28:33.808Z\",\n    \"interviewTime\": \"2021-07-22T13:28:33.808Z\",\n    \"message\": \"Hey Raj. We have seen your excellent resume and shorlisted you for interview.\"\n}",
+							"raw": "{\n    \"jobId\": \"60fc24fa7a0f8e5224892c82\",\n    \"candidateId\": \"60f5942e5e3848459217f002\",\n    \"interviewDate\": \"2021-07-22T13:28:33.808Z\",\n    \"interviewTime\": \"2021-07-22T13:28:33.808Z\",\n    \"message\": \"Hey Raj. We have seen your excellent resume and shorlisted you for interview.\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -429,7 +398,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"jobId\": \"60f6acca4eca5a44466b7f4c\",\n    \"candidateId\": \"60f5942e5e3848459217f002\",\n    \"message\": \"Hey Raj. We have seen your excellent resume and shorlisted you for interview.\"\n}",
+							"raw": "{\n    \"jobId\": \"60fc24fa7a0f8e5224892c82\",\n    \"candidateId\": \"60f5942e5e3848459217f002\",\n    \"message\": \"Hey Raj. We have seen your excellent resume and shorlisted you for interview.\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -467,7 +436,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"jobId\": \"60f6acca4eca5a44466b7f4c\",\n    \"candidateId\": \"60f5942e5e3848459217f002\",\n    \"message\": \"Hey Raj. We have seen your excellent resume and shorlisted you for interview.\"\n}",
+							"raw": "{\n    \"jobId\": \"60fc24fa7a0f8e5224892c82\",\n    \"candidateId\": \"60f5942e5e3848459217f002\",\n    \"message\": \"Hey Raj. We have seen your excellent resume and shorlisted you for interview.\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -487,88 +456,12 @@
 						}
 					},
 					"response": []
-				}
-			]
-		},
-		{
-			"name": "masterData",
-			"item": [
-				{
-					"name": "cities",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{url}}/api/masterdata/cities",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"api",
-								"masterdata",
-								"cities"
-							]
-						}
-					},
-					"response": []
 				},
 				{
-					"name": "skills",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{url}}/api/masterdata/skills",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"api",
-								"masterdata",
-								"skills"
-							]
-						}
+					"name": "Get job applicants",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
 					},
-					"response": []
-				},
-				{
-					"name": "jobsekkers",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{url}}/api/masterdata/jobRoles",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"api",
-								"masterdata",
-								"jobRoles"
-							],
-							"query": [
-								{
-									"key": "filter",
-									"value": "recruiters",
-									"disabled": true
-								},
-								{
-									"key": "filter",
-									"value": "jobSekkers",
-									"disabled": true
-								}
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "onBoard",
-			"item": [
-				{
-					"name": "jobSeeker",
 					"request": {
 						"auth": {
 							"type": "bearer",
@@ -580,11 +473,11 @@
 								}
 							]
 						},
-						"method": "POST",
+						"method": "GET",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"experienceType\":\"FRESHER\",\r\n    \"experience\":2,\r\n    \"currentRole\": \"FrontEnd Developer\",\r\n    \"skills\": [{\r\n        \"title\": \"Java\",\r\n        \"expertiseLevel\": \"INTERMIDIATE\"\r\n    }],\r\n    \"currentLocation\":\"Mumbai\",\r\n    \"openToWork\": [\"Pune\", \"Surat\"],\r\n    \"currentCTC\": 500000,\r\n    \"noticePeriod\": 2,\r\n    \"resume\": \"60f3138a29593b1bb26d9806\",\r\n    \"userPhoto\": \"60f3138a29593b1bb26d9806\",\r\n    \"about\": \"Hey I'm FrontEnd Developer in React\"\r\n}",
+							"raw": "{\n    \"jobId\": \"60f7995ae502ee11b6eeb3fc\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -592,52 +485,14 @@
 							}
 						},
 						"url": {
-							"raw": "{{url}}/api/onBoard/jobSeeker",
+							"raw": "{{url}}/api/job/jobApplicants",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
 								"api",
-								"onBoard",
-								"jobSeeker"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Recruiter",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{token}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"companyName\":\"test\",\r\n    \"userRole\":\"Test\",\r\n    \"mobileNo\":\"55555555555\",\r\n    \"locations\":[\"Mumbai\", \"Pune\", \"Banglore\"],\r\n    \"website\":\"https://google.com\",\r\n    \"foundationYear\":2021,\r\n    \"noOfEmployees\":3,\r\n    \"aboutCompany\":\"Hey There.\",\r\n    \"companyPhotos\":[\"60f3138a29593b1bb26d9806\",\"60f3141f2db28e1c590baf5d\"],\r\n    \"linkedinProfile\":\"https://www.linkedin.com/\",\r\n    \"twitterProfile\": \"https://www.twitter.com/\",\r\n    \"facebookProfile\": \"https://www.twitter.com/\",\r\n    \"companyLogo\": \"60f314c6e74ac11c99d9eb28\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{url}}/api/onBoard/recruiter",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"api",
-								"onBoard",
-								"recruiter"
+								"job",
+								"jobApplicants"
 							]
 						}
 					},
@@ -664,13 +519,14 @@
 							]
 						},
 						"url": {
-							"raw": "{{url}}/api/uploads",
+							"raw": "{{url}}/api/files/upload",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
 								"api",
-								"uploads"
+								"files",
+								"upload"
 							]
 						}
 					},
@@ -681,6 +537,84 @@
 		{
 			"name": "User",
 			"item": [
+				{
+					"name": "Save jobSeeker Profile",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"experienceType\":\"FRESHER\",\r\n    \"experience\":2,\r\n    \"currentRole\": \"FrontEnd Developer\",\r\n    \"skills\": [{\r\n        \"title\": \"Java\",\r\n        \"expertiseLevel\": \"INTERMIDIATE\"\r\n    }],\r\n    \"currentLocation\":\"Mumbai\",\r\n    \"openToWork\": [\"Pune\", \"Surat\"],\r\n    \"currentCTC\": 500000,\r\n    \"noticePeriod\": 2,\r\n    \"resume\": \"60f3138a29593b1bb26d9806\",\r\n    \"userPhoto\": \"60f3138a29593b1bb26d9806\",\r\n    \"about\": \"Hey I'm FrontEnd Developer in React\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/user/jobseeker/saveProfile",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"user",
+								"jobseeker",
+								"saveProfile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Save Recruiter Profile",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"companyName\":\"test\",\r\n    \"userRole\":\"Test\",\r\n    \"mobileNo\":\"55555555555\",\r\n    \"locations\":[\"Mumbai\", \"Pune\", \"Banglore\"],\r\n    \"website\":\"https://google.com\",\r\n    \"foundationYear\":2021,\r\n    \"noOfEmployees\":3,\r\n    \"aboutCompany\":\"Hey There.\",\r\n    \"companyPhotos\":[\"60f3138a29593b1bb26d9806\",\"60f3141f2db28e1c590baf5d\"],\r\n    \"linkedinProfile\":\"https://www.linkedin.com/\",\r\n    \"twitterProfile\": \"https://www.twitter.com/\",\r\n    \"facebookProfile\": \"https://www.twitter.com/\",\r\n    \"companyLogo\": \"60f314c6e74ac11c99d9eb28\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/user/jobseeker/saveProfile",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"user",
+								"jobseeker",
+								"saveProfile"
+							]
+						}
+					},
+					"response": []
+				},
 				{
 					"name": "get user",
 					"request": {

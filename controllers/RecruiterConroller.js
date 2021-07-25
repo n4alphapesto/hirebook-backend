@@ -5,7 +5,7 @@ const auth = require("../middlewares/jwt");
 const RecruiterModel = require("../models/RecruiterModel");
 const UserModel = require("../models/UserModel");
 
-exports.Recruiter = [
+exports.saveRecruiterProfile = [
   auth,
   body("companyName", "company Name must not be empty.").notEmpty(),
   body("userRole", "user Role must not be empty.").notEmpty(),
@@ -48,64 +48,70 @@ exports.Recruiter = [
           noOfEmployees: req.body.noOfEmployees,
           aboutCompany: req.body.aboutCompany,
           companyPhotos: req.body.companyPhotos,
-        }
+        };
 
-        if(req.body.linkedinProfile)
-          payload.linkedinProfile = req.body.linkedinProfile
-        if(req.body.twitterProfile)
-          payload.twitterProfile =  req.body.twitterProfile
-        if(req.body.facebookProfile)
-          payload.facebookProfile = req.body.facebookProfile
+        if (req.body.linkedinProfile)
+          payload.linkedinProfile = req.body.linkedinProfile;
+        if (req.body.twitterProfile)
+          payload.twitterProfile = req.body.twitterProfile;
+        if (req.body.facebookProfile)
+          payload.facebookProfile = req.body.facebookProfile;
 
-        const recruiter = new RecruiterModel(payload);
-        
-        recruiter.save((error, recruiter) => {
-          if (error) {
-            return apiResponse.ErrorResponse(
-              res,
-              "Error Saving Profile",
-              error
-            );
-          }
-
-          UserModel.findOneAndUpdate(
-            { _id: user.id },
-            { $set: { recruiter: recruiter._id, isOnboardingCompleted: true } },
-            {
-              new: true,
-              projection: {
-                name: 1,
-                email: 1,
-                userType: 1,
-                isOnboardingCompleted: 1,
-                recruiter: 1,
-              },
-            },
-            (error, user) => {
-              if (error) {
-                return apiResponse.ErrorResponse(
-                  res,
-                  "Error Saving Profile",
-                  error
-                );
-              }
-
-              UserModel.populate(
-                user,
-                { path: "recruiter", model: "Recruiter" },
-                (err, user) => {
-                  if (err) return apiResponse.ErrorResponse(res, err); // or something
-
-                  return apiResponse.successResponseWithData(
-                    res,
-                    "Profile Saved",
-                    user
-                  );
-                }
+        const recruiterPayload = new RecruiterModel(payload);
+        RecruiterModel.findOneAndUpdate(
+          { _id: user.id },
+          recruiterPayload,
+          { new: true, upsert: true },
+          (error, recruiter) => {
+            if (error) {
+              return apiResponse.ErrorResponse(
+                res,
+                "Error Saving Profile",
+                error
               );
             }
-          );
-        });
+
+            UserModel.findOneAndUpdate(
+              { _id: user.id },
+              {
+                $set: { recruiter: recruiter._id, isOnboardingCompleted: true },
+              },
+              {
+                new: true,
+                projection: {
+                  name: 1,
+                  email: 1,
+                  userType: 1,
+                  isOnboardingCompleted: 1,
+                  recruiter: 1,
+                },
+              },
+              (error, user) => {
+                if (error) {
+                  return apiResponse.ErrorResponse(
+                    res,
+                    "Error Saving Profile",
+                    error
+                  );
+                }
+
+                UserModel.populate(
+                  user,
+                  { path: "recruiter", model: "Recruiter" },
+                  (err, user) => {
+                    if (err) return apiResponse.ErrorResponse(res, err); // or something
+
+                    return apiResponse.successResponseWithData(
+                      res,
+                      "Profile Saved",
+                      user
+                    );
+                  }
+                );
+              }
+            );
+          }
+        );
       }
     } catch (err) {
       return apiResponse.ErrorResponse(res, err);

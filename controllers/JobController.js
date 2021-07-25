@@ -137,7 +137,6 @@ exports.addJob = [
   auth,
   body("title", "Title must not be empty.").notEmpty(),
   body("description", "Description must not be empty.").isLength({ min: 1 }),
-  body("postedBy", "Owner must not be empty.").isLength({ min: 1 }),
   body("skills", "Skills must not be less than 3 character.").notEmpty(),
   body("locations", "Locations must not be empty.").notEmpty(),
   body("vacancies", "Vacancies must not be empty.").notEmpty(),

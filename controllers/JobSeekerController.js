@@ -5,7 +5,7 @@ const auth = require("../middlewares/jwt");
 const UserModel = require("../models/UserModel");
 const JobSeekerModel = require("../models/JobSeekerModel");
 
-exports.JobSeeker = [
+exports.saveJobSeekerProfile = [
   auth,
   body("experienceType", "Experience Type must not be empty.").notEmpty(),
   body("experience", "Experience must not be empty.").isNumeric(),
@@ -46,10 +46,10 @@ exports.JobSeeker = [
           noticePeriod,
           resume,
           about,
-          userPhoto
+          userPhoto,
         } = req.body;
 
-        const jobSeeker = new JobSeekerModel({
+        const jobSeekerPayload = {
           experienceType,
           experience,
           currentRole,
@@ -60,57 +60,65 @@ exports.JobSeeker = [
           noticePeriod,
           resume,
           about,
-          userPhoto
-        });
+          userPhoto,
+        };
 
-        jobSeeker.save((error, jobseeker) => {
-          if (error) {
-            return apiResponse.ErrorResponse(
-              res,
-              "Error Saving Profile",
-              error
-            );
-          }
-          UserModel.findOneAndUpdate(
-            { _id: user.id },
-            { $set: { jobseeker: jobseeker._id, isOnboardingCompleted: true } },
-            {
-              new: true,
-              projection: {
-                name: 1,
-                email: 1,
-                userType: 1,
-                isOnboardingCompleted: 1,
-                jobseeker: 1,
-              },
-            },
-            (error, user) => {
-              if (error) {
-                return apiResponse.ErrorResponse(
-                  res,
-                  "Error Saving Profile",
-                  error
-                );
-              }
-
-              UserModel.populate(
-                user,
-                { path: "jobseeker", model: "JobSeeker" },
-                (err, user) => {
-                  if (err) {
-                    return apiResponse.ErrorResponse(res, err);
-                  }
-
-                  return apiResponse.successResponseWithData(
-                    res,
-                    "Profile Saved",
-                    user
-                  );
-                }
+        JobSeekerModel.findOneAndUpdate(
+          { _id: user.id },
+          jobSeekerPayload,
+          { upsert: true, new: true },
+          (error, jobseeker) => {
+            // jobSeeker.save((error, jobseeker) => {
+            if (error) {
+              return apiResponse.ErrorResponse(
+                res,
+                "Error Saving Profile",
+                error
               );
             }
-          );
-        });
+            UserModel.findOneAndUpdate(
+              { _id: user.id },
+              {
+                $set: { jobseeker: jobseeker._id, isOnboardingCompleted: true },
+              },
+              {
+                new: true,
+                projection: {
+                  name: 1,
+                  email: 1,
+                  userType: 1,
+                  isOnboardingCompleted: 1,
+                  jobseeker: 1,
+                },
+              },
+              (error, user) => {
+                if (error) {
+                  return apiResponse.ErrorResponse(
+                    res,
+                    "Error Saving Profile",
+                    error
+                  );
+                }
+
+                UserModel.populate(
+                  user,
+                  { path: "jobseeker", model: "JobSeeker" },
+                  (err, user) => {
+                    if (err) {
+                      return apiResponse.ErrorResponse(res, err);
+                    }
+
+                    return apiResponse.successResponseWithData(
+                      res,
+                      "Profile Saved",
+                      user
+                    );
+                  }
+                );
+              }
+            );
+          }
+        );
       }
     } catch (err) {
       return apiResponse.ErrorResponse(res, err);
