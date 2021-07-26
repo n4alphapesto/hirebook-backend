@@ -4,6 +4,7 @@ const { constants } = require("../helpers/constants");
 const auth = require("../middlewares/jwt");
 const UserModel = require("../models/UserModel");
 const JobSeekerModel = require("../models/JobSeekerModel");
+const mongoose = require("mongoose");
 
 exports.saveJobSeekerProfile = [
   auth,
@@ -64,7 +65,7 @@ exports.saveJobSeekerProfile = [
         };
 
         JobSeekerModel.findOneAndUpdate(
-          { _id: user.id },
+          { _id: req.body.updateId || mongoose.Types.ObjectId() },
           jobSeekerPayload,
           { upsert: true, new: true },
           (error, jobseeker) => {

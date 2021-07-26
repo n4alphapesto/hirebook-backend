@@ -4,6 +4,7 @@ const { constants } = require("../helpers/constants");
 const auth = require("../middlewares/jwt");
 const RecruiterModel = require("../models/RecruiterModel");
 const UserModel = require("../models/UserModel");
+const mongoose = require("mongoose");
 
 exports.saveRecruiterProfile = [
   auth,
@@ -57,10 +58,11 @@ exports.saveRecruiterProfile = [
         if (req.body.facebookProfile)
           payload.facebookProfile = req.body.facebookProfile;
 
-        const recruiterPayload = new RecruiterModel(payload);
+        const recruiterPayload = payload;
+
         RecruiterModel.findOneAndUpdate(
-          { _id: user.id },
-          recruiterPayload,
+          { _id: req.body.updateId || mongoose.Types.ObjectId() },
+          { $set: recruiterPayload },
           { new: true, upsert: true },
           (error, recruiter) => {
             if (error) {
