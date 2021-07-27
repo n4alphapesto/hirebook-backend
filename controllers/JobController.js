@@ -34,8 +34,9 @@ function jobData(data) {
 exports.JobList = [
   auth,
   body("postedBy", "postedBy must be a String").isString(),
-  body("limit", "postedBy must be a String").isString(),
-  body("skip", "postedBy must be a String").isString(),
+  body("limit", "limit must be a Number").isNumeric(),
+  body("skip", "skip must be a Number").isNumeric(),
+  body("location", "location must be a string").isString(),
   function (req, res) {
     try {
       const filterObj = {
@@ -45,6 +46,10 @@ exports.JobList = [
 
       if (body.postedBy) {
         filterObj.postedBy = body.postedBy;
+      }
+
+      if(body.location){
+        filterObj.locations = { $elemMatch: body.location };
       }
 
       JobModel.find(
