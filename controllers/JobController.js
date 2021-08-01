@@ -48,7 +48,7 @@ exports.JobList = [
         filterObj.postedBy = body.postedBy;
       }
 
-      if(body.location){
+      if (body.location) {
         filterObj.locations = { $elemMatch: body.location };
       }
 
@@ -104,24 +104,34 @@ exports.JobList = [
  */
 exports.JobById = [
   auth,
-  body("id", "Id must not be empty.").notEmpty(),
-  function (req, res) {
+  // param("id", "Id must not be empty.").notEmpty(),
+  (req, res) => {
+    console.log("!! req !!", req.params.id);
     try {
-      JobModel.findOne({ _id: req.body.id }, (error, job) => {
-        if (error) {
-          return apiResponse.ErrorResponse(res, "Operation Failed.", error);
-        }
+      JobModel.findOne({ _id: req.params.id })
+        .populate({
+          path: "postedBy",
+          model: "User",
+          populate: {
+            path: "recruiter",
+            model: "Recruiter",
+          },
+        })
+        .exec((error, job) => {
+          if (error) {
+            return apiResponse.ErrorResponse(res, "Operation Failed.", error);
+          }
 
-        if (job) {
-          return apiResponse.successResponseWithData(
-            res,
-            "Operation Succeed.",
-            job
-          );
-        } else {
-          return apiResponse.successResponse(res, "Job Not Found.");
-        }
-      });
+          if (job) {
+            return apiResponse.successResponseWithData(
+              res,
+              "Operation Succeed.",
+              job
+            );
+          } else {
+            return apiResponse.successResponse(res, "Job Not Found.");
+          }
+        });
     } catch (err) {
       //throw error in json response with status 500.
       return apiResponse.ErrorResponse(res, err);
