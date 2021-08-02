@@ -278,6 +278,49 @@ exports.applyForJob = [
   },
 ];
 
+exports.markJobUnInterested = [
+  auth,
+  body("jobId", "jobId must not be empty.").notEmpty(),
+  (req, res) => {
+    const user = req.user;
+
+    if (user.userType !== constants.userTypes.JOBSEEKER)
+      return apiResponse.unauthorizedResponse(res, "Invalid Permission.");
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return apiResponse.validationErrorWithData(
+        res,
+        "Validation Error.",
+        errors.array()
+      );
+    }
+
+    const jobId = req.body.jobId;
+
+    //find User
+    UserModal.finOne({ _id: user.id }).exec((error, user) => {
+      if (error)
+        return apiResponse.ErrorResponse(res, "Operation Failed.", error);
+
+      if (!user) return apiResponse.ErrorResponse(res, "Job not found.", error);
+
+      JobSeekerModal.findOneAndUpdate(
+        { _id: user.jobseeker },
+        { $push: jobId },
+        { new: true }
+      ).exec((error, result) => {
+        if (error)
+          return apiResponse.ErrorResponse(res, "Operation Failed.", error);
+
+        return apiResponse.successWithResponse(
+          res,
+          "Job marked as not interested."
+        );
+      });
+    });
+  },
+];
+
 exports.getJobApplicants = [
   auth,
   body("jobId", "jobId must not be empty").notEmpty().isString(),
