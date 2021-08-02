@@ -1,5 +1,6 @@
 const JobModel = require("../models/JobModel");
 const UserModel = require("../models/UserModel");
+const JobSeekerModel = require("../models/JobSeekerModel");
 const { body, validationResult } = require("express-validator");
 const { constants } = require("../helpers/constants");
 const moment = require("moment");
@@ -298,21 +299,21 @@ exports.markJobUnInterested = [
     const jobId = req.body.jobId;
 
     //find User
-    UserModal.finOne({ _id: user.id }).exec((error, user) => {
+    UserModel.findOne({ _id: user.id }).exec((error, user) => {
       if (error)
         return apiResponse.ErrorResponse(res, "Operation Failed.", error);
 
       if (!user) return apiResponse.ErrorResponse(res, "Job not found.", error);
 
-      JobSeekerModal.findOneAndUpdate(
+      JobSeekerModel.findOneAndUpdate(
         { _id: user.jobseeker },
-        { $push: jobId },
+        { $push: { notInterestedJobs: jobId } },
         { new: true }
       ).exec((error, result) => {
         if (error)
           return apiResponse.ErrorResponse(res, "Operation Failed.", error);
 
-        return apiResponse.successWithResponse(
+        return apiResponse.successResponseWithData(
           res,
           "Job marked as not interested."
         );
