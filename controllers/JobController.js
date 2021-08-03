@@ -118,6 +118,18 @@ exports.JobById = [
             model: "Recruiter",
           },
         })
+        .populate({
+          path: "applicants",
+          populate: {
+            path: "candidate",
+            model: "User",
+            select: "_id name email userType",
+            populate: {
+              path: "jobseeker",
+              model: "JobSeeker",
+            },
+          },
+        })
         .exec((error, job) => {
           if (error) {
             return apiResponse.ErrorResponse(res, "Operation Failed.", error);
