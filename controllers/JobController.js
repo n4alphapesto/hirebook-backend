@@ -367,8 +367,7 @@ exports.scheduleInterview = [
   auth,
   body("jobId", "jobId must not be empty.").notEmpty(),
   body("candidateId", "candidateId must not be empty.").notEmpty(),
-  body("interviewDate", "interviewDate must not be empty.").notEmpty(),
-  body("interviewTime", "interviewTime must not be empty.").notEmpty(),
+  body("interviewDateTime", "interviewDate must not be empty.").notEmpty(),
   body("message", "message must not be empty.").notEmpty(),
   sanitize("*"),
   (req, res) => {
@@ -386,8 +385,7 @@ exports.scheduleInterview = [
       );
     }
 
-    const { jobId, candidateId, interviewDate, interviewTime, message } =
-      req.body;
+    const { jobId, candidateId, interviewDateTime, message } = req.body;
 
     JobModel.findOne({ _id: jobId, postedBy: user.id }, (error, job) => {
       if (error) {
@@ -434,22 +432,20 @@ exports.scheduleInterview = [
               .send(
                 constants.confirmEmails.from,
                 user.email,
-                `Scheduled Interview on ${moment(interviewDate).format(
+                `Scheduled Interview on ${moment(interviewDateTime).format(
                   "DD/mm/yyyy"
-                )} at ${moment(interviewTime).format("hh:mm A")}`,
+                )} at ${moment(interviewDateTime).format("hh:mm A")}`,
                 message
               )
               .then(() => {
                 return apiResponse.successResponse(res, "Interview scheduled.");
               })
               .catch((error) => {
-                if (error) {
-                  return apiResponse.ErrorResponse(
-                    res,
-                    "Operation Failed.",
-                    error
-                  );
-                }
+                return apiResponse.ErrorResponse(
+                  res,
+                  "Operation Failed.",
+                  error
+                );
               });
           }
         );
