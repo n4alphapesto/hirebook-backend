@@ -34,31 +34,27 @@ function jobData(data) {
  */
 exports.JobList = [
   auth,
-  body("postedBy", "postedBy must be a String").isString(),
-  body("limit", "limit must be a Number").isNumeric(),
-  body("skip", "skip must be a Number").isNumeric(),
-  body("location", "location must be a string").isString(),
   function (req, res) {
     try {
       const filterObj = {
         isDeleted: false,
       };
-      const body = req.body;
+      const query = req.query;
 
-      if (body.postedBy) {
-        filterObj.postedBy = body.postedBy;
+      if (query.postedBy) {
+        filterObj.postedBy = query.postedBy;
       }
 
-      if (body.location) {
-        filterObj.locations = { $elemMatch: body.location };
+      if (query.location) {
+        filterObj.locations = { $elemMatch: { $eq: query.location } };
       }
 
       JobModel.find(
         filterObj,
         {},
         {
-          limit: body.limit || 20,
-          skip: body.skip || 0,
+          limit: parseInt(query.limit) || 20,
+          skip: parseInt(query.skip) || 0,
         }
       )
         .sort("-createdAt")

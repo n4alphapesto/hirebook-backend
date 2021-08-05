@@ -261,16 +261,33 @@ exports.verifyConfirm = [
               //Check account confirmation.
               if (user.confirmOTP == req.body.otp) {
                 //Update user as confirmed
-                UserModel.findOneAndUpdate(query, {
-                  isConfirmed: 1,
-                  confirmOTP: null,
-                }).catch((err) => {
-                  return apiResponse.ErrorResponse(res, err);
-                });
-                return apiResponse.successResponse(
-                  res,
-                  "Account confirmed success."
-                );
+                UserModel.findOneAndUpdate(
+                  query,
+                  {
+                    isConfirmed: 1,
+                    confirmOTP: null,
+                  },
+                  {
+                    new: true,
+                    fields: {
+                      email: 1,
+                      isOnboardingCompleted: 1,
+                      name: 1,
+                      _id: 1,
+                      userType: 1,
+                    },
+                  }
+                )
+                  .catch((err) => {
+                    return apiResponse.ErrorResponse(res, err);
+                  })
+                  .then((user) => {
+                    return apiResponse.successResponseWithData(
+                      res,
+                      "Account confirmed success.",
+                      user
+                    );
+                  });
               } else {
                 return apiResponse.unauthorizedResponse(
                   res,
