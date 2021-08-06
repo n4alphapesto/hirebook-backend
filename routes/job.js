@@ -6,6 +6,7 @@ var router = express.Router();
 router.get("/", JobController.JobList);
 router.post("/createJob", JobController.addJob);
 router.get("/jobById/:id", JobController.JobById);
+router.post("/remove", JobController.deleteJob);
 router.post("/scheduleInterview", JobController.scheduleInterview);
 router.post("/sendOfferLetter", JobController.sendOfferLetter);
 router.post("/sendRegretLetter", JobController.sendRegretLetter);

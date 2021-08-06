@@ -211,6 +211,54 @@ exports.addJob = [
   },
 ];
 
+exports.deleteJob = [
+  auth,
+  body("jobId", "Title must not be empty.").notEmpty().isString(),
+  (req, res) => {
+    try {
+      const user = req.user;
+
+      if (user.userType !== constants.userTypes.RECRUITER)
+        return apiResponse.unauthorizedResponse(res, "Invalid Permission.");
+
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        return apiResponse.validationErrorWithData(
+          res,
+          "Validation Error.",
+          errors.array()
+        );
+      } else {
+        JobModel.findOneAndUpdate(
+          { _id: mongoose.Types.ObjectId(jobId), postedBy: user.id },
+          { $set: { isDeleted: true } },
+          (err, job) => {
+            if (err) {
+              return apiResponse.validationErrorWithData(
+                res,
+                "Error Creating Job",
+                err
+              );
+            }
+
+            if (!job) {
+              return apiResponse.ErrorResponse(res, "Job not found");
+            }
+
+            return apiResponse.successResponseWithData(
+              res,
+              "Job Removed Successfully."
+            );
+          }
+        );
+      }
+    } catch (err) {
+      //throw error in json response with status 500.
+      return apiResponse.ErrorResponse(res, err);
+    }
+  },
+];
+
 exports.applyForJob = [
   auth,
   body("jobId", "jobId must not be empty.").notEmpty(),
